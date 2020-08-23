@@ -1,14 +1,18 @@
 package com.shoplist.ui.adapters
 
+import android.R.attr.data
 import android.graphics.Paint
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.CheckBox
+import android.widget.ImageView
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.models.ShopItem
+
 
 class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adapter<ShopItemAdapter.ViewHolder>()  {
 
@@ -69,6 +73,16 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
 
     fun setList(_list:List<ShopItem>){
         list = _list
+    }
+
+    fun clear() {
+        val size: Int = list.size
+        if (size > 0) {
+            for (i in 0 until size) {
+                list.drop(0)
+            }
+            notifyItemRangeRemoved(0, size)
+        }
     }
 
     private fun setStrikeThrough(holder:ViewHolder,isSet:Boolean){

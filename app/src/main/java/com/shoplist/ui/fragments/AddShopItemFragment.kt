@@ -19,18 +19,19 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.models.Category
 import com.shoplist.models.ShopItem
+import com.shoplist.models.ShopItemParcelable
 import com.shoplist.mvvm.viewmodels.CategoryViewModel
 import com.shoplist.mvvm.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
-import kotlinx.android.synthetic.main.fragment_home.*
 
 class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
 
     companion object{
         const val ACTION = "action"
+        const val PARCELABLE = "parcelableShopItem"
     }
 
     private lateinit var action: String
@@ -41,7 +42,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        exitTransition = MaterialElevationScale(/* growing= */ false)
+        //exitTransition = MaterialElevationScale(/* growing= */ false)
         enterTransition = MaterialElevationScale(/* growing= */ true)
 
     }
@@ -61,7 +62,9 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         val shopItemViewModel = ViewModelProvider(requireActivity()).get(ShopItemViewModel::class.java)
         shopItemViewModel.init(requireActivity().application)
 
+        action = requireArguments().getString(ACTION,"")
 
+        setDataAccordingToAction(action)
 
         btnBack.setOnClickListener {
             findNavController().navigateUp()
@@ -117,5 +120,18 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
     private fun hideKeyBoard(){
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
+    }
+
+    private fun setDataAccordingToAction(act:String){
+        if(act == Constants.ACTION_EDIT_VAL){
+            txtTitle.text = requireActivity().getText(R.string._edit_item)
+            btnAddItem.text = requireActivity().getText(R.string.edit_item)
+            val shopItem: ShopItemParcelable? = requireArguments().getParcelable(PARCELABLE)
+            editItemName.setText(shopItem?.name)
+            editItemCost.setText(shopItem?.itemCost.toString())
+            numberPicker.number = shopItem?.quantity.toString()
+
+            Log.d("@GET","Item Parse : "+shopItem?.name)
+        }
     }
 }

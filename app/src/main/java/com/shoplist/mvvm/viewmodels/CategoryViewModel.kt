@@ -15,7 +15,7 @@ class CategoryViewModel() : ViewModel() {
         return categoryRepo?.getAllCategories()
     }
 
-     fun getOneCategory(id:Int) : Category?{
+     fun getCategoryById(id:Int) : Category?{
         return categoryRepo?.getOneCategory(id)
     }
 
