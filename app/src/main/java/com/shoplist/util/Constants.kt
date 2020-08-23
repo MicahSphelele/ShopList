@@ -1,5 +1,6 @@
 package com.shoplist.util
 
+import android.app.Application
 import com.shoplist.R
 import java.text.DecimalFormat
 import java.text.NumberFormat
@@ -41,5 +42,9 @@ object Constants {
         val format = "0.00"
         val df = DecimalFormat(format)
         return df.format(amt / 100.00)
+    }
+
+    fun getAppVersion(application: Application) : String {
+        return  application.packageManager.getPackageInfo(application.packageName,0).versionName
     }
 }
