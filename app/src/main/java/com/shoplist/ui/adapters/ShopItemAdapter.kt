@@ -1,6 +1,5 @@
 package com.shoplist.ui.adapters
 
-import android.R.attr.data
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.models.ShopItem
+import com.shoplist.util.Constants
 
 
 class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adapter<ShopItemAdapter.ViewHolder>()  {
@@ -31,13 +31,13 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
 
         holder.run {
             itemName.text = shopItem.name
-            itemCost.text = shopItem.itemCost.toString()
+            itemCost.text = Constants.formatCurrency(shopItem.itemCost)
             itemQuantity.text = String.format("%s items",shopItem.quantity)
 
             btnMore.setOnClickListener {
                 val popup = PopupMenu(itemView.context, btnMore)
                 popup.inflate(R.menu.shop_item_menu)
-                popup.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+                popup.setOnMenuItemClickListener {
                     if(it.itemId==R.id.item_edit){
                         listener.onAction(shopItem,ShopItemAction.EDIT)
                     }
@@ -45,7 +45,7 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
                         listener.onAction(shopItem,ShopItemAction.DELETE)
                     }
                     true
-                })
+                }
                 popup.show()
             }
 
@@ -73,16 +73,6 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
 
     fun setList(_list:List<ShopItem>){
         list = _list
-    }
-
-    fun clear() {
-        val size: Int = list.size
-        if (size > 0) {
-            for (i in 0 until size) {
-                list.drop(0)
-            }
-            notifyItemRangeRemoved(0, size)
-        }
     }
 
     private fun setStrikeThrough(holder:ViewHolder,isSet:Boolean){

@@ -1,14 +1,15 @@
 package com.shoplist.util
 
 import com.shoplist.R
-import java.lang.reflect.Field
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
 object Constants {
 
     const val SHOP_TABLE = "shop"
-    const val SHOP_ID = "shopId";
+    const val SHOP_ID = "shopId"
     const val SHOP_ITEM = "item_name"
     const val SHOP_DATE = "date_added"
     const val SHOP_QUANTITY = "quantity"
@@ -31,13 +32,14 @@ object Constants {
         return SimpleDateFormat("yyyy-M-dd hh:mm a",Locale.getDefault()).format(Date())
     }
 
-    fun getResId(resName: String?, c: Class<*>): Int {
-        return try {
-            val idField: Field = c.getDeclaredField(resName!!)
-            idField.getInt(idField)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            -1
-        }
+    fun formatCurrency(amount: Double): String? {
+        return NumberFormat.getCurrencyInstance(Locale("en", "ZA"))
+            .format(amount)
+    }
+
+    fun formatCost(amt: Double): String? {
+        val format = "0.00"
+        val df = DecimalFormat(format)
+        return df.format(amt / 100.00)
     }
 }
