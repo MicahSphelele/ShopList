@@ -1,6 +1,5 @@
 package com.shoplist.ui.fragments
 
-import android.R.attr.data
 import android.content.ClipData
 import android.os.Build
 import android.os.Bundle
@@ -71,7 +70,7 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
                 addOnItemTouchListener(RecyclerViewItemClickListener(context,this,object : RecyclerViewItemClickListener.ClickListener {
 
                     override fun onClick(view: View?, position: Int) {
-                        TODO("Not yet implemented")
+
                     }
 
                     override fun onLongClick(view: View?, position: Int) {
