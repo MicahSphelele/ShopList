@@ -1,9 +1,14 @@
 package com.shoplist.ui.fragments
 
+import android.R.attr.data
+import android.content.ClipData
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -16,6 +21,8 @@ import com.shoplist.models.ShopItem
 import com.shoplist.models.ShopItemParcelable
 import com.shoplist.mvvm.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.ShopItemAdapter
+import com.shoplist.ui.custom.BtnAddDragListener
+import com.shoplist.ui.custom.RecyclerViewItemClickListener
 import com.shoplist.util.Constants
 import kotlinx.android.synthetic.main.fragment_home.*
 
@@ -60,6 +67,29 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
                         }
                     }
                 })
+
+                addOnItemTouchListener(RecyclerViewItemClickListener(context,this,object : RecyclerViewItemClickListener.ClickListener {
+
+                    override fun onClick(view: View?, position: Int) {
+                        TODO("Not yet implemented")
+                    }
+
+                    override fun onLongClick(view: View?, position: Int) {
+
+                        val clipData = ClipData.newPlainText("", "")
+                        val shadowBuilder = DragShadowBuilder(view)
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                            view?.startDragAndDrop(clipData,shadowBuilder,0,0)
+                        }else{
+                            @Suppress("DEPRECATION")
+                            view!!.startDrag(clipData, shadowBuilder, view, 0)
+                        }
+                        view?.visibility = View.VISIBLE
+                        btnAdd.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.delete_24))
+
+                    }
+                }))
             }
         }
         
@@ -68,6 +98,8 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
             bundle.putString(AddShopItemFragment.ACTION,Constants.ACTION_ADD_VAL)
            findNavController().navigate(R.id.add_shop_item_fragment,bundle,null,null)
         }
+
+        btnAdd.setOnDragListener(BtnAddDragListener(btnAdd,requireContext()))
     }
 
     override fun onStart() {
