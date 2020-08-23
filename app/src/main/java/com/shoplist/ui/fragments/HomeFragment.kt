@@ -1,7 +1,6 @@
 package com.shoplist.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,7 +37,6 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("@GET","IMAGE : ${R.mipmap.electronics}")
         shopItemViewModel = ViewModelProvider(requireActivity()).get(ShopItemViewModel::class.java)
         shopItemViewModel.init(requireActivity().application)
 
@@ -97,6 +95,7 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
 
     override fun onAction(shopItem: ShopItem, action: ShopItemAdapter.ShopItemAction) {
         if(action==ShopItemAdapter.ShopItemAction.EDIT){
+
             val bundle = Bundle()
             bundle.putString(AddShopItemFragment.ACTION,Constants.ACTION_EDIT_VAL)
             bundle.putParcelable(AddShopItemFragment.PARCELABLE,ShopItemParcelable(shopItem.id,shopItem.name,

@@ -3,11 +3,11 @@ package com.shoplist.ui.fragments
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -25,6 +25,7 @@ import com.shoplist.mvvm.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
+import kotlin.properties.Delegates
 
 class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
@@ -36,9 +37,11 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
     private lateinit var action: String
     private lateinit var categoryViewModel: CategoryViewModel
+    private lateinit var shopItemViewModel: ShopItemViewModel
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var category: Category
+    private var shopItemId by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +62,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         categoryViewModel = ViewModelProvider(requireActivity()).get(CategoryViewModel::class.java)
         categoryViewModel.init(requireActivity().application)
 
-        val shopItemViewModel = ViewModelProvider(requireActivity()).get(ShopItemViewModel::class.java)
+        shopItemViewModel = ViewModelProvider(requireActivity()).get(ShopItemViewModel::class.java)
         shopItemViewModel.init(requireActivity().application)
 
         action = requireArguments().getString(ACTION,"")
@@ -77,9 +80,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         }
 
         btnAddItem.setOnClickListener{
-          shopItemViewModel.insert(ShopItem(editItemName.text.toString(),
-              Constants.getCurrentDateTime(),
-              numberPicker.number.toInt(),category.id,editItemCost.text.toString().toDouble()))
+            insertOrUpdate()
         }
 
     }
@@ -127,9 +128,62 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
             txtTitle.text = requireActivity().getText(R.string._edit_item)
             btnAddItem.text = requireActivity().getText(R.string.edit_item)
             val shopItem: ShopItemParcelable? = requireArguments().getParcelable(PARCELABLE)
+
+            if(shopItem?.id!=null){
+                shopItemId = shopItem.id
+            }
+
             editItemName.setText(shopItem?.name)
             editItemCost.setText(shopItem?.itemCost.toString())
+
+            if(shopItem?.categoryId!=null){
+                if(categoryViewModel.getCategoryById(shopItem.categoryId)!=null){
+                    category = categoryViewModel.getCategoryById(shopItem.categoryId)!!
+                    btnSpinner.text = category.catName
+                }
+            }
+
+
             numberPicker.number = shopItem?.quantity.toString()
         }
+    }
+
+    private fun insertOrUpdate(){
+        val itemName = editItemName.text.toString()
+        var itemQuantity = numberPicker.number.toInt()
+
+        if(itemName.isEmpty()){
+            editItemName.error = "Item name is required"
+            return
+        }
+        if(editItemCost.text.toString().isEmpty()){
+            editItemCost.error = "Item cost is required"
+            return
+        }
+        if(btnSpinner.text.toString().equals(getString(R.string.item_category),true)){
+            btnSpinner.error = "Item category is required"
+            return
+        }
+        if(itemQuantity==0){
+            itemQuantity = 1
+        }
+        val categoryId = category.id
+        val itemCost = editItemCost.text.toString().toDouble()
+
+        if(action==Constants.ACTION_ADD_VAL){
+            shopItemViewModel.insert(ShopItem(itemName,Constants.getCurrentDateTime(), itemQuantity,categoryId,itemCost))
+            Toast.makeText(context,"Item added successfully!",Toast.LENGTH_SHORT).show()
+            findNavController().navigateUp()
+            return
+        }
+
+        val shopItem = ShopItem(itemName,Constants.getCurrentDateTime(), itemQuantity,categoryId,itemCost)
+        shopItem.id = shopItemId
+        shopItemViewModel.update(shopItem)
+        Toast.makeText(context,"Item Updated successfully!",Toast.LENGTH_SHORT).show()
+        findNavController().navigateUp()
+
+
+
     }
 }
