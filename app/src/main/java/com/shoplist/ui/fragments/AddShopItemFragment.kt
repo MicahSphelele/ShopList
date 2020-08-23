@@ -28,6 +28,12 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
+
+    companion object{
+        const val ACTION = "action"
+    }
+
+    private lateinit var action: String
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
@@ -55,6 +61,8 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         val shopItemViewModel = ViewModelProvider(requireActivity()).get(ShopItemViewModel::class.java)
         shopItemViewModel.init(requireActivity().application)
 
+
+
         btnBack.setOnClickListener {
             findNavController().navigateUp()
             hideKeyBoard()
@@ -66,7 +74,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         }
 
         btnAddItem.setOnClickListener{
-          val insert= shopItemViewModel.insert(ShopItem(editItemName.text.toString(),
+          shopItemViewModel.insert(ShopItem(editItemName.text.toString(),
               Constants.getCurrentDateTime(),
               numberPicker.number.toInt(),category.id,editItemCost.text.toString().toDouble()))
         }
