@@ -41,7 +41,7 @@ class CategoryRepo(application: Application) {
        runBlocking {
            launch(Dispatchers.Default){
                val job = async {
-                   categoryDao?.getOneCategory(id)
+                   categoryDao?.getCategoryById(id)
                }
                category = job.await()
            }

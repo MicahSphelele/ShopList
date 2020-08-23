@@ -130,8 +130,6 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
             editItemName.setText(shopItem?.name)
             editItemCost.setText(shopItem?.itemCost.toString())
             numberPicker.number = shopItem?.quantity.toString()
-
-            Log.d("@GET","Item Parse : "+shopItem?.name)
         }
     }
 }

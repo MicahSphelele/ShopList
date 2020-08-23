@@ -21,6 +21,6 @@ interface CategoryDao {
     fun getAllCategories() : LiveData<List<Category>>
 
     @Query("SELECT * FROM ${Constants.CAT_TABLE} WHERE categoryId=:id")
-    suspend fun getOneCategory(id:Int) : Category
+    suspend fun getCategoryById(id:Int) : Category
 
 }
