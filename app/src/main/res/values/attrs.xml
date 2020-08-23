@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="appThemeAttrs">
+        <attr name="appBackgroundColor" format="color"/>
+        <attr name="appTextColor" format="color"/>
+        <attr name="appButtonBackgroundColor" format="color"/>
+        <attr name="appButtonTextColor" format="color"/>
+        <attr name="appButtonRippleColor" format="color"/>
+    </declare-styleable>
+</resources>

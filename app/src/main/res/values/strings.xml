@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Shop List</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="add_new_item">Add New Item</string>
+    <string name="_edit_item">Add New Item</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_category">Item Category</string>
+    <string name="add_item">Add Item <b>+</b></string>
+    <string name="edit_item">Edit Item <b>📝</b></string>
+    <string name="increment">+</string>
+    <string name="decrement">-</string>
+    <string name="display">1</string>
+    <string name="default_incrementer">Default incrementer</string>
+    <string name="custom_incrementer">Custom incrementer</string>
+    <string name="item_quantity">Item Quantity</string>
+    <string name="item_cost">Item Cost</string>
+    <string name="your_list_is_currently_empty">Your list is currently empty</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+</resources>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FDBD40</color>
+    <color name="colorPrimaryDark">#F49E21</color>
+    <color name="colorAccent">#195C85</color>
+
+    <color name="colorBlack">@android:color/black</color>
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorTransparent">@android:color/transparent</color>
+    <color name="colorDark">#273443</color>
+    <color name="colorButtonRipple">@color/colorWhite</color>
+    <color name="colorCheck">#2196F3</color>
+    <color name="colorNull">@null</color>
+    <color name="colorRed">#AF1010</color>
+    <color name="colorGreen">#368539</color>
+</resources>
