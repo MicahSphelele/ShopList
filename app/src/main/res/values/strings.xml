@@ -19,4 +19,5 @@
     <string name="your_list_is_currently_empty">Your list is currently empty</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="total_estimation">Total Estimation</string>
 </resources>

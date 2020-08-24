@@ -61,8 +61,10 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         if(linearLayoutManager.findLastVisibleItemPosition() == linearLayoutManager.itemCount-1){
-                            btnAdd.visibility = View.GONE
-                            isBtnAddHidden = true
+                            if(Constants.isRecyclerViewScrollingActive(this@apply)){
+                                btnAdd.visibility = View.GONE
+                                isBtnAddHidden = true
+                            }
                         }else{
                             btnAdd.visibility = View.VISIBLE
                             isBtnAddHidden = false
@@ -123,6 +125,14 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
                 adapter =  shopItemAdapter
             }
             hideShowImageAndText(false)
+        })
+
+        shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, Observer {
+            if(it!=null){
+                txtCostEstimation.text = Constants.formatCurrency(it)
+            }else{
+                txtCostEstimation.text = Constants.formatCurrency(0.00)
+            }
         })
     }
 
