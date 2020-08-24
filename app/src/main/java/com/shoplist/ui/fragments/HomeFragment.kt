@@ -153,8 +153,7 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
         shopItemViewModel.delete(selectedShopItem)
     }
 
-    override fun onShopItemMarked(shopItem: ShopItem,isMarked:Boolean) {
-        shopItem.isMarked = isMarked
+    override fun onShopItemMarked(shopItem: ShopItem) {
         shopItemViewModel.update(shopItem)
     }
 

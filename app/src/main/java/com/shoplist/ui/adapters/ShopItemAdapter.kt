@@ -65,7 +65,8 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
             //Set Strike through according to OnCheckedChangeListener
             itemCheck.setOnCheckedChangeListener { _, isChecked ->
                 setStrikeThrough(holder,isChecked)
-                listener.onShopItemMarked(shopItem, isChecked)
+                shopItem.isMarked = isChecked
+                listener.onShopItemMarked(shopItem)
             }
 
         }
@@ -93,7 +94,7 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
     }
 
     interface ShopItemListener{
-        fun onShopItemMarked(shopItem: ShopItem, isMarked:Boolean)
+        fun onShopItemMarked(shopItem: ShopItem)
         fun onAction(shopItem: ShopItem, action:ShopItemAction)
     }
 
