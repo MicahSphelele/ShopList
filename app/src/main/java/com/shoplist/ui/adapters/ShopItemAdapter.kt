@@ -1,13 +1,16 @@
 package com.shoplist.ui.adapters
 
+import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
-import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuPopupHelper
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.models.ShopItem
@@ -26,6 +29,7 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
         return list.size
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shopItem = list[position]
 
@@ -36,9 +40,11 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
             itemQuantity.text = String.format("%s ${Constants.returnItemsOrItem(shopItem.quantity)}",shopItem.quantity)
 
             btnMore.setOnClickListener {
+
                 val popup = PopupMenu(itemView.context, btnMore)
                 popup.inflate(R.menu.shop_item_menu)
                 popup.setOnMenuItemClickListener {
+
                     if(it.itemId==R.id.item_edit){
                         listener.onAction(shopItem,ShopItemAction.EDIT)
                     }
@@ -47,7 +53,10 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
                     }
                     true
                 }
-                popup.show()
+
+                val menuPopupHelper = MenuPopupHelper(itemView.context, popup.menu as MenuBuilder,btnMore)
+                menuPopupHelper.setForceShowIcon(true)
+                menuPopupHelper.show()
             }
 
             if(shopItem.isMarked){

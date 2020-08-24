@@ -44,7 +44,7 @@
         android:layout_margin="8dp"
         app:startIconDrawable="@drawable/shopping_basket_24"
         app:startIconTint="?attr/appButtonBackgroundColor"
-        app:boxBackgroundColor="@color/colorWhite"
+        app:boxBackgroundColor="?attr/appBackgroundColor"
         app:boxStrokeColor="?attr/appButtonBackgroundColor"
         app:hintTextColor="?attr/appButtonBackgroundColor"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,8 +59,8 @@
             android:layout_margin="1dp"
             android:hint="@string/item_name"
             android:inputType="text"
-            android:textColor="@color/colorBlack"
-            android:textColorHint="@color/colorBlack"
+            android:textColor="?attr/appTextColor"
+            android:textColorHint="?attr/appTextColor"
             android:textCursorDrawable="@color/colorNull" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -70,7 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        app:boxBackgroundColor="@color/colorWhite"
+        app:boxBackgroundColor="?attr/appBackgroundColor"
         app:boxStrokeColor="?attr/appButtonBackgroundColor"
         app:hintTextColor="?attr/appButtonBackgroundColor"
         app:startIconDrawable="@drawable/money_24"
@@ -87,8 +87,8 @@
             android:layout_margin="1dp"
             android:hint="@string/item_cost"
             android:inputType="numberDecimal|numberSigned"
-            android:textColor="@color/colorBlack"
-            android:textColorHint="@color/colorBlack"
+            android:textColor="?attr/appTextColor"
+            android:textColorHint="?attr/appTextColor"
             android:textCursorDrawable="@color/colorNull" />
 
     </com.google.android.material.textfield.TextInputLayout>
