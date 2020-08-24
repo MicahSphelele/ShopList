@@ -48,6 +48,13 @@ object Constants {
         val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
         val adapter = recyclerView.adapter
         return if (layoutManager == null || adapter == null) false else layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
+    }
 
+    fun returnItemsOrItem(count:Int) : String{
+        return if(count>1){
+            "items"
+        }else{
+            "item"
+        }
     }
 }

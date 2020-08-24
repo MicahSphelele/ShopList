@@ -138,14 +138,14 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
         shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, Observer {
             if(it!=null){
                 if(it>1){
-                    txtTotalMarked.text = String.format("%s marked item",it)
+                    txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(it)}",it)
                 }else{
-                    txtTotalMarked.text = String.format("%s marked item",it)
+                    txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(it)}",it)
                 }
 
                 return@Observer
             }
-            txtTotalMarked.text = String.format("%s marked item",0)
+            txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(0)}",0)
         })
     }
 

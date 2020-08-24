@@ -30,9 +30,10 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
         val shopItem = list[position]
 
         holder.run {
+
             itemName.text = shopItem.name
             itemCost.text = Constants.formatCurrency(shopItem.itemCost)
-            itemQuantity.text = String.format("%s items",shopItem.quantity)
+            itemQuantity.text = String.format("%s ${Constants.returnItemsOrItem(shopItem.quantity)}",shopItem.quantity)
 
             btnMore.setOnClickListener {
                 val popup = PopupMenu(itemView.context, btnMore)
