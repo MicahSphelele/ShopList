@@ -25,7 +25,7 @@ class SplashActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Completable.timer(
-            2, TimeUnit.SECONDS,
+            3, TimeUnit.SECONDS,
             AndroidSchedulers.mainThread()
         ).subscribe {
             startActivity(Intent(this,MainActivity::class.java))
