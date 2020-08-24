@@ -1,11 +1,13 @@
 package com.shoplist.util
 
 import android.app.Application
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
-import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 object Constants {
 
@@ -38,13 +40,14 @@ object Constants {
             .format(amount)
     }
 
-    fun formatCost(amt: Double): String? {
-        val format = "0.00"
-        val df = DecimalFormat(format)
-        return df.format(amt / 100.00)
-    }
-
     fun getAppVersion(application: Application) : String {
         return  application.packageManager.getPackageInfo(application.packageName,0).versionName
+    }
+
+    fun isRecyclerViewScrollingActive(recyclerView: RecyclerView) : Boolean{
+        val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
+        val adapter = recyclerView.adapter
+        return if (layoutManager == null || adapter == null) false else layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
+
     }
 }
