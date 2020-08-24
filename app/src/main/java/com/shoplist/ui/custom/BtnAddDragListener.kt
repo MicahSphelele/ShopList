@@ -4,17 +4,16 @@ import android.content.Context
 import android.graphics.drawable.Drawable
 import android.view.DragEvent
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class BtnAddDragListener(private val fabButton: FloatingActionButton,val context: Context) : View.OnDragListener{
+class BtnAddDragListener(private val fabButton: FloatingActionButton,val context: Context, private val listener:Listener) : View.OnDragListener{
 
-    var trashOpen: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_forever_24)
-    var trashClose: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_24)
-    var iconDefault: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.mipmap.add_to_basket)
-    var wasDropped = false
+    private var trashOpen: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_forever_24)
+    private var trashClose: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_24)
+    private var iconDefault: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.mipmap.add_to_basket)
+    private var wasDropped = false
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
 
@@ -27,20 +26,21 @@ class BtnAddDragListener(private val fabButton: FloatingActionButton,val context
             }
             DragEvent.ACTION_DROP -> {
                 fabButton.setImageDrawable(iconDefault)
-                Toast.makeText(context,"DROP TO DELETE...",Toast.LENGTH_SHORT).show()
                 wasDropped = true
+                listener.onShopItemDropped()
             }
             DragEvent.ACTION_DRAG_ENDED -> {
                 if (!wasDropped) {
-                    v?.visibility = View.VISIBLE;
+                    v?.visibility = View.VISIBLE
                 }
                 fabButton.setImageDrawable(iconDefault)
                 wasDropped = false
             }
-
-
         }
-
         return true
+    }
+
+    interface Listener{
+        fun onShopItemDropped()
     }
 }

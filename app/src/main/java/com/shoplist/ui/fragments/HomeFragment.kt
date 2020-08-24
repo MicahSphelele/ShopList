@@ -26,10 +26,13 @@ import com.shoplist.util.Constants
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
+class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
 
     private lateinit var shopItemAdapter: ShopItemAdapter
     private lateinit var shopItemViewModel: ShopItemViewModel
+    private lateinit var shopItems: List<ShopItem>
+    private lateinit var selectedShopItem: ShopItem
+    private var isBtnAddHidden = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,11 +61,11 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         if(linearLayoutManager.findLastVisibleItemPosition() == linearLayoutManager.itemCount-1){
-                            if(linearLayoutManager.itemCount>=15){
-                                btnAdd.visibility = View.GONE
-                            }
+                            btnAdd.visibility = View.GONE
+                            isBtnAddHidden = true
                         }else{
                             btnAdd.visibility = View.VISIBLE
+                            isBtnAddHidden = false
                         }
                     }
                 })
@@ -74,7 +77,7 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
                     }
 
                     override fun onLongClick(view: View?, position: Int) {
-
+                        selectedShopItem = shopItems[position]
                         val clipData = ClipData.newPlainText("", "")
                         val shadowBuilder = DragShadowBuilder(view)
 
@@ -85,6 +88,9 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
                             view!!.startDrag(clipData, shadowBuilder, view, 0)
                         }
                         view?.visibility = View.VISIBLE
+                        if(isBtnAddHidden){
+                            btnAdd.visibility = View.VISIBLE
+                        }
                         btnAdd.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.delete_24))
 
                     }
@@ -98,15 +104,16 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
            findNavController().navigate(R.id.add_shop_item_fragment,bundle,null,null)
         }
 
-        btnAdd.setOnDragListener(BtnAddDragListener(btnAdd,requireContext()))
+        btnAdd.setOnDragListener(BtnAddDragListener(btnAdd,requireContext(),this))
     }
 
     override fun onStart() {
         super.onStart()
         shopItemViewModel.getAllShoppingItems()?.observe(viewLifecycleOwner, Observer {
-            if(it.isNotEmpty()){
+            shopItems = it
+            if(shopItems.isNotEmpty()){
                 recyclerView.run {
-                    shopItemAdapter.setList(it)
+                    shopItemAdapter.setList(shopItems)
                     adapter =  shopItemAdapter
                 }
                 return@Observer
@@ -117,6 +124,10 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
             }
             hideShowImageAndText(false)
         })
+    }
+
+    override fun onShopItemDropped() {
+        shopItemViewModel.delete(selectedShopItem)
     }
 
     override fun onShopItemMarked(shopItem: ShopItem,isMarked:Boolean) {
@@ -148,5 +159,4 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener {
         }
 
     }
-
 }
