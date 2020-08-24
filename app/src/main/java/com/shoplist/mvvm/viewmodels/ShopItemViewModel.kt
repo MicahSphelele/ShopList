@@ -26,6 +26,10 @@ class ShopItemViewModel : ViewModel() {
         return shopRepo?.getTotalEstimationCost()
     }
 
+    fun getTotalMarkedItems() : LiveData<Int>?{
+        return shopRepo?.getTotalMarkedItems()
+    }
+
     fun getAllShoppingItems() : LiveData<List<ShopItem>>?{
         return shopRepo?.getAllShoppingItems()
     }

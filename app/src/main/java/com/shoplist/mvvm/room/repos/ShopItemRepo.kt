@@ -50,13 +50,18 @@ class ShopItemRepo(application: Application) {
         return update
     }
 
+    fun getAllShoppingItems() : LiveData<List<ShopItem>>?{
+
+        return shopItemDao?.getAllShoppingItems()
+    }
+
     fun getTotalEstimationCost() : LiveData<Double>?{
 
         return shopItemDao?.getTotalEstimationCost()
     }
 
-    fun getAllShoppingItems() : LiveData<List<ShopItem>>?{
+    fun getTotalMarkedItems() : LiveData<Int>?{
 
-        return shopItemDao?.getAllShoppingItems()
+        return shopItemDao?.getTotalMarkedItems()
     }
 }

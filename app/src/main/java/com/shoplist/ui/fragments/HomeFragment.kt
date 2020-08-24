@@ -130,9 +130,17 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
         shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, Observer {
             if(it!=null){
                 txtCostEstimation.text = Constants.formatCurrency(it)
-            }else{
-                txtCostEstimation.text = Constants.formatCurrency(0.00)
+                return@Observer
             }
+            txtCostEstimation.text = Constants.formatCurrency(0.00)
+        })
+
+        shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, Observer {
+            if(it!=null){
+                txtTotalMarked.text = String.format("%s marked items",it)
+                return@Observer
+            }
+            txtTotalMarked.text = String.format("%s marked items",0)
         })
     }
 
