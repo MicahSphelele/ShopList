@@ -2,7 +2,7 @@
 <resources>
     <style name="AppTheme.DayNight" parent="AppThemeDark"/>
 
-    <style name="AppThemeDark" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppThemeDark" parent="AppThemeDefault">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,7 +10,8 @@
         <item name="windowNoTitle">true</item>
         <item name="appBackgroundColor">@color/colorDark</item>
         <item name="appTextColor">@color/colorWhite</item>
-        <item name="appButtonBackgroundColor">@color/colorAccent</item>
+        <item name="appButtonBackgroundColor">@color/colorPrimary</item>
+        <item name="appButtonTextColor">@color/colorAccent</item>
         <item name="appButtonRippleColor">@color/colorButtonRipple</item>
     </style>
 </resources>
