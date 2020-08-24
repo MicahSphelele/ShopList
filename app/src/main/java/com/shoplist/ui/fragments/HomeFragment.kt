@@ -137,10 +137,15 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
 
         shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, Observer {
             if(it!=null){
-                txtTotalMarked.text = String.format("%s marked items",it)
+                if(it>1){
+                    txtTotalMarked.text = String.format("%s marked item",it)
+                }else{
+                    txtTotalMarked.text = String.format("%s marked item",it)
+                }
+
                 return@Observer
             }
-            txtTotalMarked.text = String.format("%s marked items",0)
+            txtTotalMarked.text = String.format("%s marked item",0)
         })
     }
 
