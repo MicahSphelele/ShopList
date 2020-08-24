@@ -17,6 +17,9 @@ interface ShopItemDao {
     @Delete
     suspend fun delete(shopItem: ShopItem) : Int
 
+    @Query("SELECT SUM(${Constants.SHOP_ITEM_COST}*${Constants.SHOP_QUANTITY}) from ${Constants.SHOP_TABLE}")
+    fun getTotalEstimationCost() : LiveData<Double>
+
     @Query("SELECT * FROM ${Constants.SHOP_TABLE}")
     fun getAllShoppingItems() : LiveData<List<ShopItem>>
 }

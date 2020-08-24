@@ -22,6 +22,10 @@ class ShopItemViewModel : ViewModel() {
         return shopRepo?.update(shopItem)
     }
 
+    fun getTotalEstimationCost() : LiveData<Double>?{
+        return shopRepo?.getTotalEstimationCost()
+    }
+
     fun getAllShoppingItems() : LiveData<List<ShopItem>>?{
         return shopRepo?.getAllShoppingItems()
     }
