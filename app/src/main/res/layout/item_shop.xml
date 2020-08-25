@@ -31,6 +31,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_marginStart="8dp"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/itemCheck"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Diazepam" />
@@ -51,7 +52,7 @@
             android:id="@+id/itemQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="italic|bold"
+            android:textStyle="italic"
             android:textColor="@color/colorPrimaryDark"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,7 +68,7 @@
             android:contentDescription="@string/todo"
             android:src="@drawable/more"
             android:focusable="true"
-            app:tint="?attr/appTextColor"
+            app:tint="?attr/appOverFlowActionButtonColor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/itemName" />

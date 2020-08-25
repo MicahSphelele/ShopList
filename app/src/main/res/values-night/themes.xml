@@ -14,5 +14,6 @@
         <item name="appButtonTextColor">@color/colorAccent</item>
         <item name="appButtonRippleColor">@color/colorButtonRipple</item>
         <item name="appCheckBoxCustomBackground">@drawable/custom_checkbox_yellow</item>
+        <item name="appOverFlowActionButtonColor">@color/colorPrimary</item>
     </style>
 </resources>

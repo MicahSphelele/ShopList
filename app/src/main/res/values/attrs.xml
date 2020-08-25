@@ -7,5 +7,6 @@
         <attr name="appButtonTextColor" format="color"/>
         <attr name="appButtonRippleColor" format="color"/>
         <attr name="appCheckBoxCustomBackground" format="reference"/>
+        <attr name="appOverFlowActionButtonColor" format="color"/>
     </declare-styleable>
 </resources>
