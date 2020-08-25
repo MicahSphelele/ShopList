@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="8dp"
     app:cardCornerRadius="10dp"
     app:cardBackgroundColor="?attr/appBackgroundColor"
@@ -13,29 +13,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/itemCheck"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:text=""
             android:checked="false"
             android:button="@color/colorTransparent"
-            android:background="@drawable/custom_checkbox"
+            android:background="?attr/appCheckBoxCustomBackground"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/itemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toEndOf="@+id/itemCheck"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Diazepam" />
+            tools:text="Diazepam" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/itemCost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,9 +45,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/itemCheck"
             app:layout_constraintTop_toBottomOf="@+id/itemName"
-            android:text="R 200.00" />
+            tools:text="R 200.00" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/itemQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,9 +58,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/itemCost"
             app:layout_constraintTop_toTopOf="@+id/itemCost"
-            android:text="500 items" />
+            tools:text="500 items" />
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/btnMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
