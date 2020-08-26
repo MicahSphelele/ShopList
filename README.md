@@ -8,10 +8,21 @@ A simple open source shopping list app demo developed in Kotlin. As more ideas a
 ## App Screen Shots (Default Mode)
 
 <div>
-  <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_1.jpg" width="125" height="250"/>
+ <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_1.jpg" width="125" height="250"/>
 <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_2.jpg" width="125" height="250"/>
 <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_3.jpg" width="125" height="250"/>
 <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_4.jpg" width="125" height="250"/>
 <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_5.jpg" width="125" height="250"/>
 <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_6.jpg" width="125" height="250"/>
+</div>
+
+## App Screen Shots (Dark Mode)
+
+<div>
+ <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/dark_mode/screen_1.jpg" width="125" height="250"/>
+<img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/dark_mode/screen_2.jpg" width="125" height="250"/>
+<img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/dark_mode/screen_3.jpg" width="125" height="250"/>
+<img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/dark_mode/screen_4.jpg" width="125" height="250"/>
+<img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/dark_mode/screen_5.jpg" width="125" height="250"/>
+<img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/dark_mode/screen_6.jpg" width="125" height="250"/>
 </div>
