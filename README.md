@@ -7,6 +7,14 @@ The app uses [**Room Database**](https://developer.android.com/training/data-sto
   <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/logo.png" width="100" height="100">
 </p>
 
+###### App Features
+- Add a shopping list item
+- Edit a shopping list item
+- Remove/delete a shopping list by click on the dot buttons/picture on the bottom right of the item or by long pressing the item and dragging on the FAB button
+- You can mark an item as complete 
+- Can peform calculate estimated total cost 
+- Can get total marked shopping items
+
 ## App Screen Shots (Default Mode)
 
 <div>
