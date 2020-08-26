@@ -14,6 +14,7 @@ The app uses [**Room Database**](https://developer.android.com/training/data-sto
 - You can mark an item as complete 
 - Can peform calculate estimated total cost 
 - Can get total marked shopping items
+- Switch between Default mode and Dark Mode depending on the system
 
 ## App Screen Shots (Default Mode)
 
