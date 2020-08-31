@@ -29,5 +29,4 @@ class CategoryViewModel(private val application: Application) : ViewModel(), Vie
         return CategoryViewModel(application) as T
     }
 
-
 }
