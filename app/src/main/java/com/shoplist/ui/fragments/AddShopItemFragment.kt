@@ -62,8 +62,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         categoryViewModel = ViewModelProvider(requireActivity()).get(CategoryViewModel::class.java)
         categoryViewModel.init(requireActivity().application)
 
-        shopItemViewModel = ViewModelProvider(requireActivity()).get(ShopItemViewModel::class.java)
-        shopItemViewModel.init(requireActivity().application)
+        shopItemViewModel = ViewModelProvider(requireActivity(),ShopItemViewModel(requireActivity().application)).get(ShopItemViewModel::class.java)
 
         action = requireArguments().getString(ACTION,"")
 

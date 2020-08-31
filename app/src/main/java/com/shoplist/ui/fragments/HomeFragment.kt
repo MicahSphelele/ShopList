@@ -45,8 +45,7 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        shopItemViewModel = ViewModelProvider(requireActivity()).get(ShopItemViewModel::class.java)
-        shopItemViewModel.init(requireActivity().application)
+        shopItemViewModel = ViewModelProvider(requireActivity(),ShopItemViewModel(requireActivity().application)).get(ShopItemViewModel::class.java)
 
         shopItemAdapter = ShopItemAdapter(this@HomeFragment)
 
