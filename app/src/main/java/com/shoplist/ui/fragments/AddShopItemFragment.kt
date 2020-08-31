@@ -59,8 +59,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        categoryViewModel = ViewModelProvider(requireActivity()).get(CategoryViewModel::class.java)
-        categoryViewModel.init(requireActivity().application)
+        categoryViewModel = ViewModelProvider(requireActivity(),CategoryViewModel(requireActivity().application)).get(CategoryViewModel::class.java)
 
         shopItemViewModel = ViewModelProvider(requireActivity(),ShopItemViewModel(requireActivity().application)).get(ShopItemViewModel::class.java)
 
