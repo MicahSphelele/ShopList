@@ -21,8 +21,7 @@
         app:tint="?attr/appButtonBackgroundColor"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:rippleColor="?attr/appTextColor"
-         />
+        app:rippleColor="?attr/appTextColor" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtTitle"
