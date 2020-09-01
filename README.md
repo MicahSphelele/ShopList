@@ -16,7 +16,7 @@ The app uses [**Room Database**](https://developer.android.com/training/data-sto
 - Can get total marked shopping items
 - Switch between Default mode and Dark Mode depending on the system
 
-## App Screen Shots (Default Mode)
+## App Screen Shots (Light Mode)
 
 <div>
  <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_1.jpg" width="125" height="250"/>
