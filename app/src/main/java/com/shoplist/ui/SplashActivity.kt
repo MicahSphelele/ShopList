@@ -1,10 +1,11 @@
-package com.shoplist
+package com.shoplist.ui
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.shoplist.R
 import com.shoplist.util.Constants
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
             3, TimeUnit.SECONDS,
             AndroidSchedulers.mainThread()
         ).subscribe {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
     }

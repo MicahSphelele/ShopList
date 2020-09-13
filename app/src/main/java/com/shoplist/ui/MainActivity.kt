@@ -1,10 +1,11 @@
-package com.shoplist
+package com.shoplist.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.navigation.ui.NavigationUI
+import com.shoplist.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        navController = Navigation.findNavController(this,R.id.navigation_host_fragment)
+        navController = Navigation.findNavController(this, R.id.navigation_host_fragment)
 
     }
 
