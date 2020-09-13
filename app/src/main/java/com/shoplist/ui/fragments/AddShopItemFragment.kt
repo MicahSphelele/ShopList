@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,9 +23,11 @@ import com.shoplist.mvvm.viewmodels.CategoryViewModel
 import com.shoplist.mvvm.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
 
@@ -45,6 +46,10 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Calling setRetainInstance(true) in a Fragment’s onCreate method will keep a fragment instance across configuration
+        // changes (instead of destroying and recreating it).
+        retainInstance = true
+
         //exitTransition = MaterialElevationScale(/* growing= */ false)
         enterTransition = MaterialElevationScale(/* growing= */ true)
 
@@ -85,7 +90,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
     override fun onStart() {
         super.onStart()
-        categoryViewModel.getAllCategories()?.observe(viewLifecycleOwner, Observer {
+        categoryViewModel.getAllCategories()?.observe(viewLifecycleOwner, {
             categoryAdapter = CategoryAdapter(it,this)
         })
     }

@@ -23,8 +23,10 @@ import com.shoplist.ui.adapters.ShopItemAdapter
 import com.shoplist.ui.custom.BtnAddDragListener
 import com.shoplist.ui.custom.RecyclerViewItemClickListener
 import com.shoplist.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 
+@AndroidEntryPoint
 class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
 
     private lateinit var shopItemAdapter: ShopItemAdapter
@@ -35,6 +37,9 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Calling setRetainInstance(true) in a Fragment’s onCreate method will keep a fragment instance across configuration
+        // changes (instead of destroying and recreating it).
+        retainInstance = true
         enterTransition = MaterialElevationScale(/* growing= */ true)
     }
 

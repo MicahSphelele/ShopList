@@ -7,11 +7,13 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.shoplist.R
 import com.shoplist.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
