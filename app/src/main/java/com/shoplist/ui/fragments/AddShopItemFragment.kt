@@ -10,7 +10,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,17 +30,15 @@ import kotlin.properties.Delegates
 @AndroidEntryPoint
 class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
-
     companion object{
         const val ACTION = "action"
         const val PARCELABLE = "parcelableShopItem"
     }
 
-    private lateinit var action: String
-
     private  val categoryViewModel by viewModels<CategoryViewModel>()
+    private  val shopItemViewModel by viewModels<ShopItemViewModel>()
 
-    private lateinit var shopItemViewModel: ShopItemViewModel
+    private lateinit var action: String
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var category: Category
@@ -52,9 +49,8 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         //Calling setRetainInstance(true) in a Fragment’s onCreate method will keep a fragment instance across configuration
         // changes (instead of destroying and recreating it).
         retainInstance = true
-
-        //exitTransition = MaterialElevationScale(/* growing= */ false)
         enterTransition = MaterialElevationScale(/* growing= */ true)
+        //exitTransition = MaterialElevationScale(/* growing= */ false)
 
     }
 
@@ -66,9 +62,6 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
-        shopItemViewModel = ViewModelProvider(requireActivity(),ShopItemViewModel(requireActivity().application)).get(ShopItemViewModel::class.java)
 
         action = requireArguments().getString(ACTION,"")
 

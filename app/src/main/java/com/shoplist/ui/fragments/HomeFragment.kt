@@ -9,8 +9,8 @@ import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,8 +29,9 @@ import kotlinx.android.synthetic.main.fragment_home.*
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
 
+    private  val shopItemViewModel by viewModels<ShopItemViewModel>()
+
     private lateinit var shopItemAdapter: ShopItemAdapter
-    private lateinit var shopItemViewModel: ShopItemViewModel
     private lateinit var shopItems: List<ShopItem>
     private lateinit var selectedShopItem: ShopItem
     private var isBtnAddHidden = false
@@ -49,8 +50,6 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        shopItemViewModel = ViewModelProvider(requireActivity(),ShopItemViewModel(requireActivity().application)).get(ShopItemViewModel::class.java)
 
         shopItemAdapter = ShopItemAdapter(this@HomeFragment)
 
