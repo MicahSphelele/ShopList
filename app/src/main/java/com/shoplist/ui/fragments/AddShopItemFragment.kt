@@ -30,13 +30,13 @@ import kotlin.properties.Delegates
 @AndroidEntryPoint
 class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
-    companion object{
+    companion object {
         const val ACTION = "action"
         const val PARCELABLE = "parcelableShopItem"
     }
 
-    private  val categoryViewModel by viewModels<CategoryViewModel>()
-    private  val shopItemViewModel by viewModels<ShopItemViewModel>()
+    private val categoryViewModel by viewModels<CategoryViewModel>()
+    private val shopItemViewModel by viewModels<ShopItemViewModel>()
 
     private lateinit var action: String
     private lateinit var categoryAdapter: CategoryAdapter
@@ -54,16 +54,14 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_add_shop_item, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        action = requireArguments().getString(ACTION,"")
+        action = requireArguments().getString(ACTION, "")
 
         setDataAccordingToAction(action)
 
@@ -77,7 +75,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
             bottomSheetDialog.show()
         }
 
-        btnAddItem.setOnClickListener{
+        btnAddItem.setOnClickListener {
             insertOrUpdate()
         }
 
@@ -86,7 +84,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
     override fun onStart() {
         super.onStart()
         categoryViewModel.getAllCategories()?.observe(viewLifecycleOwner, {
-            categoryAdapter = CategoryAdapter(it,this)
+            categoryAdapter = CategoryAdapter(it, this)
         })
     }
 
@@ -102,12 +100,12 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
     }
 
     @SuppressLint("InflateParams")
-    private fun categoryBottomDialog() : BottomSheetDialog {
+    private fun categoryBottomDialog(): BottomSheetDialog {
         val bottomDialog = BottomSheetDialog(requireContext())
         bottomDialog.dismissWithAnimation = true
         bottomDialog.setCancelable(true)
         bottomDialog.dismissWithAnimation = true
-        val v = LayoutInflater.from(context).inflate(R.layout.bottom_dialog_categories,null)
+        val v = LayoutInflater.from(context).inflate(R.layout.bottom_dialog_categories, null)
         val recyclerView = v.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = categoryAdapter
@@ -116,26 +114,26 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         return bottomDialog
     }
 
-    private fun hideKeyBoard(){
+    private fun hideKeyBoard() {
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
-    private fun setDataAccordingToAction(act:String){
-        if(act == Constants.ACTION_EDIT_VAL){
+    private fun setDataAccordingToAction(act: String) {
+        if (act == Constants.ACTION_EDIT_VAL) {
             txtTitle.text = requireActivity().getText(R.string._edit_item)
             btnAddItem.text = requireActivity().getText(R.string.edit_item)
             val shopItem: ShopItemParcelable? = requireArguments().getParcelable(PARCELABLE)
 
-            if(shopItem?.id!=null){
+            if (shopItem?.id != null) {
                 shopItemId = shopItem.id
             }
 
             editItemName.setText(shopItem?.name)
             editItemCost.setText(shopItem?.itemCost.toString())
 
-            if(shopItem?.categoryId!=null){
-                if(categoryViewModel.getCategoryById(shopItem.categoryId)!=null){
+            if (shopItem?.categoryId != null) {
+                if (categoryViewModel.getCategoryById(shopItem.categoryId) != null) {
                     category = categoryViewModel.getCategoryById(shopItem.categoryId)!!
                     btnSpinner.text = category.catName
                 }
@@ -146,41 +144,49 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         }
     }
 
-    private fun insertOrUpdate(){
+    private fun insertOrUpdate() {
         val itemName = editItemName.text.toString()
         var itemQuantity = numberPicker.number.toInt()
 
-        if(itemName.isEmpty()){
+        if (itemName.isEmpty()) {
             editItemName.error = "Item name is required"
             return
         }
-        if(editItemCost.text.toString().isEmpty()){
+        if (editItemCost.text.toString().isEmpty()) {
             editItemCost.error = "Item cost is required"
             return
         }
-        if(btnSpinner.text.toString().equals(getString(R.string.item_category),true)){
+        if (btnSpinner.text.toString().equals(getString(R.string.item_category), true)) {
             btnSpinner.error = "Item category is required"
             return
         }
-        if(itemQuantity==0){
+        if (itemQuantity == 0) {
             itemQuantity = 1
         }
         val categoryId = category.id
         val itemCost = editItemCost.text.toString().toDouble()
 
-        if(action==Constants.ACTION_ADD_VAL){
-            shopItemViewModel.insert(ShopItem(itemName,Constants.getCurrentDateTime(), itemQuantity,categoryId,itemCost))
-            Toast.makeText(context,"Item added successfully!",Toast.LENGTH_SHORT).show()
+        if (action == Constants.ACTION_ADD_VAL) {
+            shopItemViewModel.insert(
+                ShopItem(
+                    itemName,
+                    Constants.getCurrentDateTime(),
+                    itemQuantity,
+                    categoryId,
+                    itemCost
+                )
+            )
+            Toast.makeText(context, "Item added successfully!", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
             return
         }
 
-        val shopItem = ShopItem(itemName,Constants.getCurrentDateTime(), itemQuantity,categoryId,itemCost)
+        val shopItem =
+            ShopItem(itemName, Constants.getCurrentDateTime(), itemQuantity, categoryId, itemCost)
         shopItem.id = shopItemId
         shopItemViewModel.update(shopItem)
-        Toast.makeText(context,"Item Updated successfully!",Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Item Updated successfully!", Toast.LENGTH_SHORT).show()
         findNavController().navigateUp()
-
 
 
     }

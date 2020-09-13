@@ -29,7 +29,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
 
-    private  val shopItemViewModel by viewModels<ShopItemViewModel>()
+    private val shopItemViewModel by viewModels<ShopItemViewModel>()
 
     private lateinit var shopItemAdapter: ShopItemAdapter
     private lateinit var shopItems: List<ShopItem>
@@ -44,7 +44,7 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
         enterTransition = MaterialElevationScale(/* growing= */ true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -63,16 +63,16 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
-                        if(dy > 0){
+                        if (dy > 0) {
 
-                            if(btnAdd.isShown){
+                            if (btnAdd.isShown) {
                                 btnAdd.hide()
                                 isBtnAddHidden = true
                             }
 
-                        }else if(dy < 0){
+                        } else if (dy < 0) {
 
-                            if(!btnAdd.isShown){
+                            if (!btnAdd.isShown) {
                                 btnAdd.show()
                                 isBtnAddHidden = true
                             }
@@ -81,49 +81,59 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
                     }
                 })
 
-                addOnItemTouchListener(RecyclerViewItemClickListener(context,this,object : RecyclerViewItemClickListener.ClickListener {
+                addOnItemTouchListener(
+                    RecyclerViewItemClickListener(
+                        context,
+                        this,
+                        object : RecyclerViewItemClickListener.ClickListener {
 
-                    override fun onClick(view: View?, position: Int) {
+                            override fun onClick(view: View?, position: Int) {
 
-                    }
+                            }
 
-                    override fun onLongClick(view: View?, position: Int) {
+                            override fun onLongClick(view: View?, position: Int) {
 
-                        selectedShopItem = shopItems[position]
-                        val clipData = ClipData.newPlainText("", "")
-                        val shadowBuilder = DragShadowBuilder(view)
+                                selectedShopItem = shopItems[position]
+                                val clipData = ClipData.newPlainText("", "")
+                                val shadowBuilder = DragShadowBuilder(view)
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-                            view?.startDragAndDrop(clipData,shadowBuilder,0,0)
+                                    view?.startDragAndDrop(clipData, shadowBuilder, 0, 0)
 
-                        }else{
+                                } else {
 
-                            @Suppress("DEPRECATION")
-                            view!!.startDrag(clipData, shadowBuilder, view, 0)
-                        }
+                                    @Suppress("DEPRECATION")
+                                    view!!.startDrag(clipData, shadowBuilder, view, 0)
+                                }
 
-                        view?.visibility = View.VISIBLE
+                                view?.visibility = View.VISIBLE
 
-                        if(isBtnAddHidden){
-                            btnAdd.show()
-                        }
+                                if (isBtnAddHidden) {
+                                    btnAdd.show()
+                                }
 
-                        btnAdd.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.delete_24))
+                                btnAdd.setImageDrawable(
+                                    ContextCompat.getDrawable(
+                                        context,
+                                        R.drawable.delete_24
+                                    )
+                                )
 
-                    }
+                            }
 
-                }))
+                        })
+                )
             }
         }
-        
+
         btnAdd.setOnClickListener {
             val bundle = Bundle()
-            bundle.putString(AddShopItemFragment.ACTION,Constants.ACTION_ADD_VAL)
-           findNavController().navigate(R.id.add_shop_item_fragment,bundle,null,null)
+            bundle.putString(AddShopItemFragment.ACTION, Constants.ACTION_ADD_VAL)
+            findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
         }
 
-        btnAdd.setOnDragListener(BtnAddDragListener(btnAdd,requireContext(),this))
+        btnAdd.setOnDragListener(BtnAddDragListener(btnAdd, requireContext(), this))
     }
 
 
@@ -131,22 +141,22 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
         super.onStart()
         shopItemViewModel.getAllShoppingItems()?.observe(viewLifecycleOwner, Observer {
             shopItems = it
-            if(shopItems.isNotEmpty()){
+            if (shopItems.isNotEmpty()) {
                 recyclerView.run {
                     shopItemAdapter.setList(shopItems)
-                    adapter =  shopItemAdapter
+                    adapter = shopItemAdapter
                 }
                 return@Observer
             }
             recyclerView.run {
                 shopItemAdapter.setList(it)
-                adapter =  shopItemAdapter
+                adapter = shopItemAdapter
             }
             hideShowImageAndText(false)
         })
 
         shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, Observer {
-            if(it!=null){
+            if (it != null) {
                 txtCostEstimation.text = Constants.formatCurrency(it)
                 return@Observer
             }
@@ -154,16 +164,18 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
         })
 
         shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, Observer {
-            if(it!=null){
-                if(it>1){
-                    txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(it)}",it)
-                }else{
-                    txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(it)}",it)
+            if (it != null) {
+                if (it > 1) {
+                    txtTotalMarked.text =
+                        String.format("%s ✔ ${Constants.returnItemsOrItem(it)}", it)
+                } else {
+                    txtTotalMarked.text =
+                        String.format("%s ✔ ${Constants.returnItemsOrItem(it)}", it)
                 }
 
                 return@Observer
             }
-            txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(0)}",0)
+            txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(0)}", 0)
         })
     }
 
@@ -176,24 +188,33 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
     }
 
     override fun onAction(shopItem: ShopItem, action: ShopItemAdapter.ShopItemAction) {
-        if(action==ShopItemAdapter.ShopItemAction.EDIT){
+        if (action == ShopItemAdapter.ShopItemAction.EDIT) {
 
             val bundle = Bundle()
-            bundle.putString(AddShopItemFragment.ACTION,Constants.ACTION_EDIT_VAL)
-            bundle.putParcelable(AddShopItemFragment.PARCELABLE,ShopItemParcelable(shopItem.id,shopItem.name,
-                shopItem.dateAdded,shopItem.quantity,shopItem.categoryId,shopItem.itemCost,shopItem.isMarked))
-            findNavController().navigate(R.id.add_shop_item_fragment,bundle,null,null)
+            bundle.putString(AddShopItemFragment.ACTION, Constants.ACTION_EDIT_VAL)
+            bundle.putParcelable(
+                AddShopItemFragment.PARCELABLE, ShopItemParcelable(
+                    shopItem.id,
+                    shopItem.name,
+                    shopItem.dateAdded,
+                    shopItem.quantity,
+                    shopItem.categoryId,
+                    shopItem.itemCost,
+                    shopItem.isMarked
+                )
+            )
+            findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
             return
         }
         shopItemViewModel.delete(shopItem)
 
     }
 
-    private fun hideShowImageAndText(hide:Boolean){
-        if(hide){
+    private fun hideShowImageAndText(hide: Boolean) {
+        if (hide) {
             image.visibility = View.GONE
             text.visibility = View.GONE
-        }else{
+        } else {
             image.visibility = View.VISIBLE
             text.visibility = View.VISIBLE
         }
