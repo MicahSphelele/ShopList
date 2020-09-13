@@ -1,7 +1,6 @@
 package com.shoplist.mvvm.room.repos
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import com.shoplist.models.Category
 import com.shoplist.mvvm.room.AppDB
@@ -10,8 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-class CategoryRepo(application: Application) {
+class CategoryRepo @Inject constructor(application: Application) {
 
     private var categoryDao : CategoryDao ? = null
 

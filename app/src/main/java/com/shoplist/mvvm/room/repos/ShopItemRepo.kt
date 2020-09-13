@@ -9,8 +9,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
-class ShopItemRepo(application: Application) {
+class ShopItemRepo @Inject constructor(application: Application) {
 
     private var shopItemDao : ShopItemDao? = null
 
