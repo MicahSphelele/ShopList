@@ -9,4 +9,4 @@ data class ShopItemParcelable(
     var dateAdded: String, var quantity: Int,
     var categoryId: Int, var itemCost: Double,
     var isMarked: Boolean
-) : Parcelable 
+) : Parcelable
