@@ -10,10 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.models.Category
 
-class CategoryAdapter(private val list:List<Category>, private val listener:CategoryListener) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>(){
+class CategoryAdapter(private val list: List<Category>, private val listener: CategoryListener) :
+    RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -25,7 +28,12 @@ class CategoryAdapter(private val list:List<Category>, private val listener:Cate
 
         holder.run {
             categoryName.text = category.catName
-            categoryImage.setImageDrawable(ContextCompat.getDrawable(itemView.context,category.catImage))
+            categoryImage.setImageDrawable(
+                ContextCompat.getDrawable(
+                    itemView.context,
+                    category.catImage
+                )
+            )
             itemView.setOnClickListener {
                 listener.onCategoryClicked(category)
             }
@@ -33,12 +41,12 @@ class CategoryAdapter(private val list:List<Category>, private val listener:Cate
 
     }
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v){
-        var categoryName : TextView = v.findViewById(R.id.categoryName)
-        var categoryImage : ImageView = v.findViewById(R.id.categoryImage)
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        var categoryName: TextView = v.findViewById(R.id.categoryName)
+        var categoryImage: ImageView = v.findViewById(R.id.categoryImage)
     }
 
-    interface CategoryListener{
+    interface CategoryListener {
         fun onCategoryClicked(category: Category)
     }
 }

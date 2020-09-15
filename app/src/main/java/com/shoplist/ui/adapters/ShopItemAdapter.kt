@@ -17,12 +17,15 @@ import com.shoplist.models.ShopItem
 import com.shoplist.util.Constants
 
 
-class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adapter<ShopItemAdapter.ViewHolder>()  {
+class ShopItemAdapter(private val listener: ShopItemListener) :
+    RecyclerView.Adapter<ShopItemAdapter.ViewHolder>() {
 
     private lateinit var list: List<ShopItem>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_shop, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_shop, parent, false)
+        )
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +40,10 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
 
             itemName.text = shopItem.name
             itemCost.text = Constants.formatCurrency(shopItem.itemCost)
-            itemQuantity.text = String.format("%s ${Constants.returnItemsOrItem(shopItem.quantity)}",shopItem.quantity)
+            itemQuantity.text = String.format(
+                "%s ${Constants.returnItemsOrItem(shopItem.quantity)}",
+                shopItem.quantity
+            )
 
             btnMore.setOnClickListener {
 
@@ -45,21 +51,22 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
                 popup.inflate(R.menu.shop_item_menu)
                 popup.setOnMenuItemClickListener {
 
-                    if(it.itemId==R.id.item_edit){
-                        listener.onAction(shopItem,ShopItemAction.EDIT)
+                    if (it.itemId == R.id.item_edit) {
+                        listener.onAction(shopItem, ShopItemAction.EDIT)
                     }
-                    if(it.itemId==R.id.item_delete){
-                        listener.onAction(shopItem,ShopItemAction.DELETE)
+                    if (it.itemId == R.id.item_delete) {
+                        listener.onAction(shopItem, ShopItemAction.DELETE)
                     }
                     true
                 }
 
-                val menuPopupHelper = MenuPopupHelper(itemView.context, popup.menu as MenuBuilder,btnMore)
+                val menuPopupHelper =
+                    MenuPopupHelper(itemView.context, popup.menu as MenuBuilder, btnMore)
                 menuPopupHelper.setForceShowIcon(true)
                 menuPopupHelper.show()
             }
 
-            if(shopItem.isMarked){
+            if (shopItem.isMarked) {
                 itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
                 itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
@@ -69,11 +76,11 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
             itemCheck.isChecked = shopItem.isMarked
 
             //Set Strike through marked if marked is true
-            setStrikeThrough(this,shopItem.isMarked)
+            setStrikeThrough(this, shopItem.isMarked)
 
             //Set Strike through according to OnCheckedChangeListener
             itemCheck.setOnCheckedChangeListener { _, isChecked ->
-                setStrikeThrough(holder,isChecked)
+                setStrikeThrough(holder, isChecked)
                 shopItem.isMarked = isChecked
                 listener.onShopItemMarked(shopItem)
             }
@@ -82,32 +89,32 @@ class ShopItemAdapter(private val listener:ShopItemListener) : RecyclerView.Adap
 
     }
 
-    fun setList(_list:List<ShopItem>){
+    fun setList(_list: List<ShopItem>) {
         list = _list
     }
 
-    private fun setStrikeThrough(holder:ViewHolder,isSet:Boolean){
-        if(isSet){
+    private fun setStrikeThrough(holder: ViewHolder, isSet: Boolean) {
+        if (isSet) {
             holder.itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             holder.itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             holder.itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
     }
 
-    inner class ViewHolder(v:View) : RecyclerView.ViewHolder(v){
-        var itemName : TextView = v.findViewById(R.id.itemName)
-        var itemCost : TextView = v.findViewById(R.id.itemCost)
+     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        var itemName: TextView = v.findViewById(R.id.itemName)
+        var itemCost: TextView = v.findViewById(R.id.itemCost)
         var itemQuantity: TextView = v.findViewById(R.id.itemQuantity)
-        var itemCheck : CheckBox = v.findViewById(R.id.itemCheck)
-        var btnMore : ImageView = v.findViewById(R.id.btnMore)
+        var itemCheck: CheckBox = v.findViewById(R.id.itemCheck)
+        var btnMore: ImageView = v.findViewById(R.id.btnMore)
     }
 
-    interface ShopItemListener{
+    interface ShopItemListener {
         fun onShopItemMarked(shopItem: ShopItem)
-        fun onAction(shopItem: ShopItem, action:ShopItemAction)
+        fun onAction(shopItem: ShopItem, action: ShopItemAction)
     }
 
-    enum class ShopItemAction{
-        EDIT,DELETE
+    enum class ShopItemAction {
+        EDIT, DELETE
     }
 }

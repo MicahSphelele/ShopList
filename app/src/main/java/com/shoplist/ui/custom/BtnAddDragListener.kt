@@ -8,16 +8,23 @@ import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class BtnAddDragListener(private val fabButton: FloatingActionButton,val context: Context, private val listener:Listener) : View.OnDragListener{
+class BtnAddDragListener(
+    private val fabButton: FloatingActionButton,
+    val context: Context,
+    private val listener: Listener
+) : View.OnDragListener {
 
-    private var trashOpen: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_forever_24)
-    private var trashClose: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_24)
-    private var iconDefault: Drawable? = ContextCompat.getDrawable(context, com.shoplist.R.mipmap.add_to_basket)
+    private var trashOpen: Drawable? =
+        ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_forever_24)
+    private var trashClose: Drawable? =
+        ContextCompat.getDrawable(context, com.shoplist.R.drawable.delete_24)
+    private var iconDefault: Drawable? =
+        ContextCompat.getDrawable(context, com.shoplist.R.mipmap.add_to_basket)
     private var wasDropped = false
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
 
-        when(event!!.action){
+        when (event!!.action) {
             DragEvent.ACTION_DRAG_ENTERED -> {
                 fabButton.setImageDrawable(trashOpen)
             }
@@ -40,7 +47,7 @@ class BtnAddDragListener(private val fabButton: FloatingActionButton,val context
         return true
     }
 
-    interface Listener{
+    interface Listener {
         fun onShopItemDropped()
     }
 }
