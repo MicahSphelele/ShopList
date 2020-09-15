@@ -12,26 +12,26 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = Constants.SHOP_TABLE)
 data class ShopItem(
     @ColumnInfo(name = Constants.SHOP_ITEM)
-    var name:String,
+    var name: String,
 
     @ColumnInfo(name = Constants.SHOP_DATE)
-    var dateAdded:String,
+    var dateAdded: String,
 
     @ColumnInfo(name = Constants.SHOP_QUANTITY)
-    var quantity:Int = 1,
+    var quantity: Int = 1,
 
     @ColumnInfo(name = Constants.SHOP_CAT_ID)
-    var categoryId:Int,
+    var categoryId: Int,
 
     @ColumnInfo(name = Constants.SHOP_ITEM_COST)
-    var itemCost:Double,
+    var itemCost: Double,
 
     @ColumnInfo(name = Constants.SHOP_IS_MARKED)
-    var isMarked:Boolean = false
+    var isMarked: Boolean = false
 
-) : Parcelable{
+) : Parcelable {
     @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name= Constants.SHOP_ID)
-    var id:Int=0
+    @ColumnInfo(name = Constants.SHOP_ID)
+    var id: Int = 0
 }
