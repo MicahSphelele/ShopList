@@ -13,12 +13,12 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 object RepoModule {
 
     @Provides
-    fun providesCategoryRepo(application: Application) : CategoryRepo {
+    fun providesCategoryRepo(application: Application): CategoryRepo {
         return CategoryRepo(application)
     }
 
     @Provides
-    fun providesShopItemRepo(application: Application) : ShopItemRepo {
+    fun providesShopItemRepo(application: Application): ShopItemRepo {
         return ShopItemRepo(application)
     }
 }
