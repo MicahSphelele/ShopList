@@ -9,12 +9,12 @@ import com.shoplist.util.Constants
 data class Category(
 
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name= Constants.CAT_ID)
-    var id:Int=0,
+    @ColumnInfo(name = Constants.CAT_ID)
+    var id: Int = 0,
 
     @ColumnInfo(name = Constants.CAT_NAME)
-    var catName:String,
+    var catName: String,
 
     @ColumnInfo(name = Constants.CAT_IMAGE)
-    var catImage:Int
+    var catImage: Int
 )
