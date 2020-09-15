@@ -2,6 +2,7 @@ package com.shoplist.ui.adapters
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +48,7 @@ class ShopItemAdapter(private val listener: ShopItemListener) :
 
             btnMore.setOnClickListener {
 
-                val popup = PopupMenu(itemView.context, btnMore)
+                val popup = PopupMenu(ContextThemeWrapper(itemView.context,R.style.ItemPopUpMenuStyle), btnMore)
                 popup.inflate(R.menu.shop_item_menu)
                 popup.setOnMenuItemClickListener {
 
@@ -61,7 +62,7 @@ class ShopItemAdapter(private val listener: ShopItemListener) :
                 }
 
                 val menuPopupHelper =
-                    MenuPopupHelper(itemView.context, popup.menu as MenuBuilder, btnMore)
+                    MenuPopupHelper(ContextThemeWrapper(itemView.context,R.style.ItemPopUpMenuStyle), popup.menu as MenuBuilder, btnMore)
                 menuPopupHelper.setForceShowIcon(true)
                 menuPopupHelper.show()
             }
