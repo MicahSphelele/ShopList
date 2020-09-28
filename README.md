@@ -1,4 +1,5 @@
 # Shop List
+
 <p align="center">
   <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/logo.png" width="100" height="100">
 </p>
