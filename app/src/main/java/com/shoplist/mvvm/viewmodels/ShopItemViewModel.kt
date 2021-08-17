@@ -5,8 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.shoplist.models.ShopItem
 import com.shoplist.mvvm.room.repos.ShopItemRepo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class ShopItemViewModel @ViewModelInject constructor(private val shopRepo : ShopItemRepo) : ViewModel() {
+@HiltViewModel
+class ShopItemViewModel @Inject constructor(private val shopRepo : ShopItemRepo) : ViewModel() {
 
     fun insert(shopItem: ShopItem) : Long? {
         return shopRepo.insert(shopItem)
