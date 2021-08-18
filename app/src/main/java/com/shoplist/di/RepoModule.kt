@@ -1,7 +1,7 @@
 package com.shoplist.di
 
 import android.app.Application
-import com.shoplist.mvvm.room.repos.CategoryRepo
+import com.shoplist.mvvm.room.repos.CategoryRepository
 import com.shoplist.mvvm.room.repos.ShopItemRepository
 import dagger.Module
 import dagger.Provides
@@ -15,8 +15,8 @@ object RepoModule {
 
     @Singleton
     @Provides
-    fun providesCategoryRepo(application: Application): CategoryRepo {
-        return CategoryRepo(application)
+    fun providesCategoryRepository(application: Application): CategoryRepository {
+        return CategoryRepository(application)
     }
 
     @Singleton

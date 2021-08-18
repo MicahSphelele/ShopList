@@ -3,20 +3,20 @@ package com.shoplist.mvvm.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.shoplist.models.Category
-import com.shoplist.mvvm.room.repos.CategoryRepo
+import com.shoplist.mvvm.room.repos.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val categoryRepo : CategoryRepo) : ViewModel(){
+class CategoryViewModel @Inject constructor(private val categoryRepository : CategoryRepository) : ViewModel(){
 
     fun getAllCategories() : LiveData<List<Category>>? {
 
-        return categoryRepo.getAllCategories()
+        return categoryRepository.getAllCategories()
     }
 
    suspend  fun getCategoryById(id:Int) : Category?{
 
-        return categoryRepo.getOneCategory(id)
+        return categoryRepository.getOneCategory(id)
     }
 }

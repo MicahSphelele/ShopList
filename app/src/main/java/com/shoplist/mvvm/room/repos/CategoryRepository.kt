@@ -7,7 +7,7 @@ import com.shoplist.mvvm.room.AppDB
 import com.shoplist.mvvm.room.doas.CategoryDao
 import javax.inject.Inject
 
-class CategoryRepo @Inject constructor(application: Application) {
+class CategoryRepository @Inject constructor(application: Application) {
 
     private var categoryDao: CategoryDao? = null
 
