@@ -8,14 +8,15 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CategoryViewModel @Inject constructor(private val categoryRepository : CategoryRepository) : ViewModel(){
+class CategoryViewModel @Inject constructor(private val categoryRepository: CategoryRepository) :
+    ViewModel() {
 
-    fun getAllCategories() : LiveData<List<Category>>? {
+    fun getAllCategories(): LiveData<List<Category>>? {
 
         return categoryRepository.getAllCategories()
     }
 
-   suspend  fun getCategoryById(id:Int) : Category?{
+    suspend fun getCategoryById(id: Int): Category? {
 
         return categoryRepository.getOneCategory(id)
     }
