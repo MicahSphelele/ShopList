@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,7 @@ import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
+import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
@@ -171,15 +173,18 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         val itemCost = editItemCost.text.toString().toDouble()
 
         if (action == Constants.ACTION_ADD_VAL) {
-            shopItemViewModel.insert(
-                ShopItem(
-                    itemName,
-                    Constants.getCurrentDateTime(),
-                    itemQuantity,
-                    categoryId,
-                    itemCost
+            lifecycleScope.launch {
+                shopItemViewModel.insert(
+                    ShopItem(
+                        itemName,
+                        Constants.getCurrentDateTime(),
+                        itemQuantity,
+                        categoryId,
+                        itemCost
+                    )
                 )
-            )
+            }
+
             Toast.makeText(context, "Item added successfully!", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
             return
@@ -188,7 +193,9 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         val shopItem =
             ShopItem(itemName, Constants.getCurrentDateTime(), itemQuantity, categoryId, itemCost)
         shopItem.id = shopItemId
-        shopItemViewModel.update(shopItem)
+        lifecycleScope.launch {
+            shopItemViewModel.update(shopItem)
+        }
         Toast.makeText(context, "Item Updated successfully!", Toast.LENGTH_SHORT).show()
         findNavController().navigateUp()
 

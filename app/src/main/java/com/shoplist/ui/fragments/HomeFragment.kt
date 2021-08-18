@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,7 @@ import com.shoplist.ui.custom.RecyclerViewItemClickListener
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
@@ -183,11 +185,15 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
     }
 
     override fun onShopItemDropped() {
-        shopItemViewModel.delete(selectedShopItem)
+        lifecycleScope.launch {
+            shopItemViewModel.delete(selectedShopItem)
+        }
     }
 
     override fun onShopItemMarked(shopItem: ShopItem) {
-        shopItemViewModel.update(shopItem)
+        lifecycleScope.launch {
+            shopItemViewModel.update(shopItem)
+        }
     }
 
     override fun onAction(shopItem: ShopItem, action: ShopItemAdapter.ShopItemAction) {
@@ -209,8 +215,9 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
             findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
             return
         }
-        shopItemViewModel.delete(shopItem)
-
+        lifecycleScope.launch {
+            shopItemViewModel.delete(shopItem)
+        }
     }
 
     private fun hideShowImageAndText(hide: Boolean) {

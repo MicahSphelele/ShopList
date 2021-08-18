@@ -19,36 +19,19 @@ class ShopItemRepo @Inject constructor(application: Application) {
         shopItemDao = AppDB.getInstance(application.applicationContext).shopItemDao()
     }
 
-    fun insert(shopItem: ShopItem) : Long? {
-        var insert : Long? = null
-        runBlocking {
-            launch(Dispatchers.Default){
-                val job = async {shopItemDao?.insert(shopItem) }
-                insert = job.await()
-            }
+   suspend fun insert(shopItem: ShopItem) : Long? {
 
-        }
-        return insert
+        return shopItemDao?.insert(shopItem)
     }
 
-    fun delete(shopItem: ShopItem) : Int? {
-        var delete : Int? = null
-        runBlocking {
-            launch(Dispatchers.Default) {
-                val job = async { shopItemDao?.delete(shopItem) }
-                delete = job.await()
-            }
-        }
-        return delete
+   suspend fun delete(shopItem: ShopItem) : Int? {
+
+        return shopItemDao?.delete(shopItem)
     }
 
-     fun update(shopItem: ShopItem) : Int? {
-         var update : Int? = null
-         runBlocking {
-             val  job = async { shopItemDao?.update(shopItem) }
-             update = job.await()
-         }
-        return update
+   suspend fun update(shopItem: ShopItem) : Int? {
+
+        return shopItemDao?.update(shopItem)
     }
 
     fun getAllShoppingItems() : LiveData<List<ShopItem>>?{
