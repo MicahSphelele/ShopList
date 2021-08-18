@@ -7,14 +7,11 @@ import com.shoplist.util.Constants
 
 @Entity(tableName = Constants.CAT_TABLE)
 data class Category(
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = Constants.CAT_ID)
     var id: Int = 0,
-
     @ColumnInfo(name = Constants.CAT_NAME)
     var catName: String,
-
     @ColumnInfo(name = Constants.CAT_IMAGE)
     var catImage: Int
 )
