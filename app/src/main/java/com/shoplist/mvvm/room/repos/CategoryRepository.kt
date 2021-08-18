@@ -16,14 +16,17 @@ class CategoryRepository @Inject constructor(application: Application) {
     }
 
     suspend fun insert(category: Category): Long? {
+
         return categoryDao?.insert(category)
     }
 
     suspend fun update(category: Category): Int? {
+
         return categoryDao?.update(category)
     }
 
     suspend fun delete(category: Category): Int? {
+
         return categoryDao?.update(category)
     }
 
@@ -32,8 +35,8 @@ class CategoryRepository @Inject constructor(application: Application) {
         return categoryDao?.getAllCategories()
     }
 
-   suspend fun getOneCategory(id: Int): Category? {
+    suspend fun getOneCategory(id: Int): Category? {
 
         return categoryDao?.getCategoryById(id)
-   }
+    }
 }
