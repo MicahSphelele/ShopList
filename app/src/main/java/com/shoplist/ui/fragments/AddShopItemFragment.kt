@@ -139,12 +139,14 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
             editItemCost.setText(shopItem?.itemCost.toString())
 
             if (shopItem?.categoryId != null) {
-                if (categoryViewModel.getCategoryById(shopItem.categoryId) != null) {
-                    category = categoryViewModel.getCategoryById(shopItem.categoryId)!!
-                    btnSpinner.text = category.catName
+
+                lifecycleScope.launch {
+                    if (categoryViewModel.getCategoryById(shopItem.categoryId) != null) {
+                        category = categoryViewModel.getCategoryById(shopItem.categoryId)!!
+                        btnSpinner.text = category.catName
+                    }
                 }
             }
-
 
             numberPicker.number = shopItem?.quantity.toString()
         }
