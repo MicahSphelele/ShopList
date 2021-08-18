@@ -3,12 +3,12 @@ package com.shoplist.mvvm.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.shoplist.models.ShopItem
-import com.shoplist.mvvm.room.repos.ShopItemRepo
+import com.shoplist.mvvm.room.repos.ShopItemRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ShopItemViewModel @Inject constructor(private val shopRepo : ShopItemRepo) : ViewModel() {
+class ShopItemViewModel @Inject constructor(private val shopRepo : ShopItemRepository) : ViewModel() {
 
    suspend fun insert(shopItem: ShopItem) : Long? {
         return shopRepo.insert(shopItem)

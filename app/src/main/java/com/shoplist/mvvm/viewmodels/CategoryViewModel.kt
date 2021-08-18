@@ -16,6 +16,7 @@ class CategoryViewModel @Inject constructor(private val categoryRepo : CategoryR
     }
 
      fun getCategoryById(id:Int) : Category?{
+
         return categoryRepo.getOneCategory(id)
     }
 }

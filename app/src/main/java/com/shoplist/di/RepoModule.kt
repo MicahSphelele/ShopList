@@ -2,7 +2,7 @@ package com.shoplist.di
 
 import android.app.Application
 import com.shoplist.mvvm.room.repos.CategoryRepo
-import com.shoplist.mvvm.room.repos.ShopItemRepo
+import com.shoplist.mvvm.room.repos.ShopItemRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ object RepoModule {
 
     @Singleton
     @Provides
-    fun providesShopItemRepo(application: Application): ShopItemRepo {
-        return ShopItemRepo(application)
+    fun providesShopItemRepository(application: Application): ShopItemRepository {
+        return ShopItemRepository(application)
     }
 }

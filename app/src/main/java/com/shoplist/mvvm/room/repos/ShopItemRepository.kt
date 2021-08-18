@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
-class ShopItemRepo @Inject constructor(application: Application) {
+class ShopItemRepository @Inject constructor(application: Application) {
 
     private var shopItemDao : ShopItemDao? = null
 
