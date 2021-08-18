@@ -12,43 +12,45 @@ import com.shoplist.mvvm.room.doas.CategoryDao
 import com.shoplist.mvvm.room.doas.ShopItemDao
 import com.shoplist.util.Constants
 
-@Database(entities = [Category::class,ShopItem::class],version = 2,exportSchema = false)
-abstract class AppDB : RoomDatabase(){
+@Database(entities = [Category::class, ShopItem::class], version = 2, exportSchema = false)
+abstract class AppDB : RoomDatabase() {
 
-   abstract fun categoryDao() : CategoryDao
-   abstract fun shopItemDao() : ShopItemDao
+    abstract fun categoryDao(): CategoryDao
+    abstract fun shopItemDao(): ShopItemDao
 
-    companion object{
+    companion object {
 
         @Volatile
-        private var instance : AppDB?=null
+        private var instance: AppDB? = null
 
-        fun getInstance(context: Context) : AppDB {
+        fun getInstance(context: Context): AppDB {
 
-            return instance?: synchronized(AppDB::class.java){
-                instance?: buildAppDB(context).also {
+            return instance ?: synchronized(AppDB::class.java) {
+                instance ?: buildAppDB(context).also {
                     instance = it
                 }
             }
 
         }
 
-        private fun buildAppDB(context: Context) : AppDB{
-            return Room.databaseBuilder(context.applicationContext,
-                AppDB::class.java,"appDB.db")
+        private fun buildAppDB(context: Context): AppDB {
+            return Room.databaseBuilder(
+                context.applicationContext,
+                AppDB::class.java, "appDB.db"
+            )
                 .addMigrations(MIGRATION_1_2)
                 .fallbackToDestructiveMigration()
                 .addCallback(callBack)
                 .build()
         }
 
-        private val MIGRATION_1_2 = object : Migration(1,2){
+        private val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE ${Constants.CAT_TABLE} ADD COLUMN ${Constants.CAT_IMAGE} INTEGER")
             }
         }
 
-        private val callBack = object : RoomDatabase.Callback(){
+        private val callBack = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
                 db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Food','${Constants.CAT_IMAGES[0]}') ")
