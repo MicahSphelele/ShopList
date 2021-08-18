@@ -48,7 +48,10 @@ class ShopItemAdapter(private val listener: ShopItemListener) :
 
             btnMore.setOnClickListener {
 
-                val popup = PopupMenu(ContextThemeWrapper(itemView.context,R.style.ItemPopUpMenuStyle), btnMore)
+                val popup = PopupMenu(
+                    ContextThemeWrapper(itemView.context, R.style.ItemPopUpMenuStyle),
+                    btnMore
+                )
                 popup.inflate(R.menu.shop_item_menu)
                 popup.setOnMenuItemClickListener {
 
@@ -62,7 +65,12 @@ class ShopItemAdapter(private val listener: ShopItemListener) :
                 }
 
                 val menuPopupHelper =
-                    MenuPopupHelper(ContextThemeWrapper(itemView.context,R.style.ItemPopUpMenuStyle), popup.menu as MenuBuilder, btnMore)
+                    MenuPopupHelper(
+                        ContextThemeWrapper(
+                            itemView.context,
+                            R.style.ItemPopUpMenuStyle
+                        ), popup.menu as MenuBuilder, btnMore
+                    )
                 menuPopupHelper.setForceShowIcon(true)
                 menuPopupHelper.show()
             }
@@ -102,7 +110,7 @@ class ShopItemAdapter(private val listener: ShopItemListener) :
         }
     }
 
-     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var itemName: TextView = v.findViewById(R.id.itemName)
         var itemCost: TextView = v.findViewById(R.id.itemCost)
         var itemQuantity: TextView = v.findViewById(R.id.itemQuantity)
