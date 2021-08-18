@@ -8,29 +8,30 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ShopItemViewModel @Inject constructor(private val shopRepo : ShopItemRepository) : ViewModel() {
+class ShopItemViewModel @Inject constructor(private val shopRepo: ShopItemRepository) :
+    ViewModel() {
 
-   suspend fun insert(shopItem: ShopItem) : Long? {
+    suspend fun insert(shopItem: ShopItem): Long? {
         return shopRepo.insert(shopItem)
     }
 
-   suspend fun delete(shopItem: ShopItem) : Int?{
+    suspend fun delete(shopItem: ShopItem): Int? {
         return shopRepo.delete(shopItem)
     }
 
-   suspend fun update(shopItem: ShopItem) : Int?{
+    suspend fun update(shopItem: ShopItem): Int? {
         return shopRepo.update(shopItem)
     }
 
-    fun getTotalEstimationCost() : LiveData<Double>?{
+    fun getTotalEstimationCost(): LiveData<Double>? {
         return shopRepo.getTotalEstimationCost()
     }
 
-    fun getTotalMarkedItems() : LiveData<Int>?{
+    fun getTotalMarkedItems(): LiveData<Int>? {
         return shopRepo.getTotalMarkedItems()
     }
 
-    fun getAllShoppingItems() : LiveData<List<ShopItem>>?{
+    fun getAllShoppingItems(): LiveData<List<ShopItem>>? {
         return shopRepo.getAllShoppingItems()
     }
 }
