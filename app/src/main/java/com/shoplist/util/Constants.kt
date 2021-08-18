@@ -1,13 +1,10 @@
 package com.shoplist.util
 
 import android.app.Application
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 object Constants {
 
@@ -28,7 +25,7 @@ object Constants {
     const val ACTION_EDIT_VAL = "edit"
     const val ACTION_ADD_VAL = "add"
 
-    val CAT_IMAGES = listOf(
+    val CATEGORY_IMAGES = listOf(
         R.mipmap.food, R.mipmap.fashion, R.mipmap.personal_care, R.mipmap.appliances,
         R.mipmap.toiletries, R.mipmap.electronics, R.mipmap.utencils
     )
@@ -44,12 +41,6 @@ object Constants {
 
     fun getAppVersion(application: Application): String {
         return application.packageManager.getPackageInfo(application.packageName, 0).versionName
-    }
-
-    fun isRecyclerViewScrollingActive(recyclerView: RecyclerView): Boolean {
-        val layoutManager = recyclerView.layoutManager as LinearLayoutManager?
-        val adapter = recyclerView.adapter
-        return if (layoutManager == null || adapter == null) false else layoutManager.findLastCompletelyVisibleItemPosition() < adapter.itemCount - 1
     }
 
     fun returnItemsOrItem(count: Int): String {

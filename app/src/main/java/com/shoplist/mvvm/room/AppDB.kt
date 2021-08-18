@@ -53,13 +53,13 @@ abstract class AppDB : RoomDatabase() {
         private val callBack = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Food','${Constants.CAT_IMAGES[0]}') ")
-                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Fashion','${Constants.CAT_IMAGES[1]}') ")
-                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Personal Care','${Constants.CAT_IMAGES[2]}') ")
-                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Appliances','${Constants.CAT_IMAGES[3]}') ")
-                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Toiletries','${Constants.CAT_IMAGES[4]}') ")
-                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Electronics','${Constants.CAT_IMAGES[5]}') ")
-                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Utensils','${Constants.CAT_IMAGES[6]}') ")
+                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Food','${Constants.CATEGORY_IMAGES[0]}') ")
+                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Fashion','${Constants.CATEGORY_IMAGES[1]}') ")
+                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Personal Care','${Constants.CATEGORY_IMAGES[2]}') ")
+                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Appliances','${Constants.CATEGORY_IMAGES[3]}') ")
+                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Toiletries','${Constants.CATEGORY_IMAGES[4]}') ")
+                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Electronics','${Constants.CATEGORY_IMAGES[5]}') ")
+                db.execSQL("INSERT INTO ${Constants.CAT_TABLE} (${Constants.CAT_NAME},${Constants.CAT_IMAGE}) VALUES('Utensils','${Constants.CATEGORY_IMAGES[6]}') ")
             }
 
         }
