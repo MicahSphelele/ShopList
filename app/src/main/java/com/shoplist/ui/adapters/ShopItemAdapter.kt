@@ -17,11 +17,11 @@ import com.shoplist.R
 import com.shoplist.models.ShopItem
 import com.shoplist.util.Constants
 
-
-class ShopItemAdapter(private val listener: ShopItemListener) :
+class ShopItemAdapter :
     RecyclerView.Adapter<ShopItemAdapter.ViewHolder>() {
 
     private lateinit var list: List<ShopItem>
+    private lateinit var listener: ShopItemListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -29,16 +29,13 @@ class ShopItemAdapter(private val listener: ShopItemListener) :
         )
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount(): Int = list.size
 
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val shopItem = list[position]
 
         holder.run {
-
             itemName.text = shopItem.name
             itemCost.text = Constants.formatCurrency(shopItem.itemCost)
             itemQuantity.text = String.format(
@@ -98,8 +95,12 @@ class ShopItemAdapter(private val listener: ShopItemListener) :
 
     }
 
-    fun setList(_list: List<ShopItem>) {
-        list = _list
+    fun setShopItemList(list: List<ShopItem>) {
+        this.list = list
+    }
+
+    fun setListener(listener: ShopItemListener) {
+        this.listener = listener
     }
 
     private fun setStrikeThrough(holder: ViewHolder, isSet: Boolean) {

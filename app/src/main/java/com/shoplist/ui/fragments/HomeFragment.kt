@@ -27,15 +27,19 @@ import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
 
     private val shopItemViewModel by viewModels<ShopItemViewModel>()
 
-    private lateinit var shopItemAdapter: ShopItemAdapter
     private lateinit var shopItems: List<ShopItem>
     private lateinit var selectedShopItem: ShopItem
+
+    @Inject
+    lateinit var shopItemAdapter: ShopItemAdapter
+
     private var isBtnAddHidden = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +61,7 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        shopItemAdapter = ShopItemAdapter(this@HomeFragment)
+        shopItemAdapter.setListener(this)
 
         hideShowImageAndText(true)
 
@@ -148,13 +152,13 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
             shopItems = it
             if (shopItems.isNotEmpty()) {
                 recyclerView.run {
-                    shopItemAdapter.setList(shopItems)
+                    shopItemAdapter.setShopItemList(shopItems)
                     adapter = shopItemAdapter
                 }
                 return@Observer
             }
             recyclerView.run {
-                shopItemAdapter.setList(it)
+                shopItemAdapter.setShopItemList(it)
                 adapter = shopItemAdapter
             }
             hideShowImageAndText(false)

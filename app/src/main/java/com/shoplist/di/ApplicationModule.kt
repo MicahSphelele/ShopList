@@ -1,6 +1,7 @@
 package com.shoplist.di
 
 import com.shoplist.ui.adapters.CategoryAdapter
+import com.shoplist.ui.adapters.ShopItemAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,12 @@ import dagger.hilt.components.SingletonComponent
 object ApplicationModule {
 
     @Provides
-    fun provideAdapter(): CategoryAdapter {
+    fun provideCategoryAdapter(): CategoryAdapter {
         return CategoryAdapter()
+    }
+
+    @Provides
+    fun provideShopItemAdapter(): ShopItemAdapter {
+        return ShopItemAdapter()
     }
 }
