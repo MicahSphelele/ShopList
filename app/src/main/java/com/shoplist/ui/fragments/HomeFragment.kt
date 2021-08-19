@@ -158,8 +158,8 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
                 return@Observer
             }
             recyclerView.run {
-                shopItemAdapter.setShopItemList(it)
                 adapter = shopItemAdapter
+                shopItemAdapter.setShopItemList(it)
             }
             hideShowImageAndText(false)
         })

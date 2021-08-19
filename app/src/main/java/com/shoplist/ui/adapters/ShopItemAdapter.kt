@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.models.ShopItem
@@ -29,74 +31,76 @@ class ShopItemAdapter :
         )
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
     @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val shopItem = list[position]
+        if (list.isNotEmpty()) {
+            val shopItem = list[position]
 
-        holder.run {
-            itemName.text = shopItem.name
-            itemCost.text = Constants.formatCurrency(shopItem.itemCost)
-            itemQuantity.text = String.format(
-                "%s ${Constants.returnItemsOrItem(shopItem.quantity)}",
-                shopItem.quantity
-            )
-
-            btnMore.setOnClickListener {
-
-                val popup = PopupMenu(
-                    ContextThemeWrapper(itemView.context, R.style.ItemPopUpMenuStyle),
-                    btnMore
+            holder.run {
+                itemName.text = shopItem.name
+                itemCost.text = Constants.formatCurrency(shopItem.itemCost)
+                itemQuantity.text = String.format(
+                    "%s ${Constants.returnItemsOrItem(shopItem.quantity)}",
+                    shopItem.quantity
                 )
-                popup.inflate(R.menu.shop_item_menu)
-                popup.setOnMenuItemClickListener {
 
-                    if (it.itemId == R.id.item_edit) {
-                        listener.onAction(shopItem, ShopItemAction.EDIT)
+                btnMore.setOnClickListener {
+
+                    val popup = PopupMenu(
+                        ContextThemeWrapper(itemView.context, R.style.ItemPopUpMenuStyle),
+                        btnMore
+                    )
+                    popup.inflate(R.menu.shop_item_menu)
+                    popup.setOnMenuItemClickListener {
+
+                        if (it.itemId == R.id.item_edit) {
+                            listener.onAction(shopItem, ShopItemAction.EDIT)
+                        }
+                        if (it.itemId == R.id.item_delete) {
+                            listener.onAction(shopItem, ShopItemAction.DELETE)
+                        }
+                        true
                     }
-                    if (it.itemId == R.id.item_delete) {
-                        listener.onAction(shopItem, ShopItemAction.DELETE)
-                    }
-                    true
+
+                    val menuPopupHelper =
+                        MenuPopupHelper(
+                            ContextThemeWrapper(
+                                itemView.context,
+                                R.style.ItemPopUpMenuStyle
+                            ), popup.menu as MenuBuilder, btnMore
+                        )
+                    menuPopupHelper.setForceShowIcon(true)
+                    menuPopupHelper.show()
                 }
 
-                val menuPopupHelper =
-                    MenuPopupHelper(
-                        ContextThemeWrapper(
-                            itemView.context,
-                            R.style.ItemPopUpMenuStyle
-                        ), popup.menu as MenuBuilder, btnMore
-                    )
-                menuPopupHelper.setForceShowIcon(true)
-                menuPopupHelper.show()
+                if (shopItem.isMarked) {
+                    itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                }
+
+                //Set checkbox according to is marked
+                itemCheck.isChecked = shopItem.isMarked
+
+                //Set Strike through marked if marked is true
+                setStrikeThrough(this, shopItem.isMarked)
+
+                //Set Strike through according to OnCheckedChangeListener
+                itemCheck.setOnCheckedChangeListener { _, isChecked ->
+                    setStrikeThrough(holder, isChecked)
+                    shopItem.isMarked = isChecked
+                    listener.onShopItemMarked(shopItem)
+                }
             }
-
-            if (shopItem.isMarked) {
-                itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            }
-
-            //Set checkbox according to is marked
-            itemCheck.isChecked = shopItem.isMarked
-
-            //Set Strike through marked if marked is true
-            setStrikeThrough(this, shopItem.isMarked)
-
-            //Set Strike through according to OnCheckedChangeListener
-            itemCheck.setOnCheckedChangeListener { _, isChecked ->
-                setStrikeThrough(holder, isChecked)
-                shopItem.isMarked = isChecked
-                listener.onShopItemMarked(shopItem)
-            }
-
         }
 
     }
 
     fun setShopItemList(list: List<ShopItem>) {
         this.list = list
+        this.asyncListDiffer.submitList(this.list)
     }
 
     fun setListener(listener: ShopItemListener) {
@@ -110,6 +114,18 @@ class ShopItemAdapter :
             holder.itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
     }
+
+    private val diffCallBack = object : DiffUtil.ItemCallback<ShopItem>() {
+        override fun areItemsTheSame(oldItem: ShopItem, newItem: ShopItem): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: ShopItem, newItem: ShopItem): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    private val asyncListDiffer = AsyncListDiffer(this, diffCallBack)
 
     class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var itemName: TextView = v.findViewById(R.id.itemName)
