@@ -27,6 +27,7 @@ import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
@@ -41,10 +42,12 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
     private val shopItemViewModel by viewModels<ShopItemViewModel>()
 
     private lateinit var action: String
-    private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var category: Category
     private var shopItemId by Delegates.notNull<Int>()
+
+    @Inject
+    lateinit var categoryAdapter: CategoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +74,8 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
 
         setDataAccordingToAction(action)
 
+        categoryAdapter.setListener(this)
+
         btnBack.setOnClickListener {
             findNavController().navigateUp()
             hideKeyBoard()
@@ -90,7 +95,7 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
     override fun onStart() {
         super.onStart()
         categoryViewModel.getAllCategories()?.observe(viewLifecycleOwner, {
-            categoryAdapter = CategoryAdapter(it, this)
+            categoryAdapter.setCategories(it)
         })
     }
 
