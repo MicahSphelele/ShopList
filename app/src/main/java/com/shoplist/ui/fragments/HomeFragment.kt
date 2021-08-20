@@ -3,10 +3,8 @@ package com.shoplist.ui.fragments
 import android.content.ClipData
 import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.View.DragShadowBuilder
-import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -30,7 +28,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
+class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
 
     private val shopItemViewModel by viewModels<ShopItemViewModel>()
 
@@ -48,14 +46,6 @@ class HomeFragment : Fragment(), ShopItemAdapter.ShopItemListener, BtnAddDragLis
         // changes (instead of destroying and recreating it).
         retainInstance = true
         enterTransition = MaterialElevationScale(/* growing= */ true)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
