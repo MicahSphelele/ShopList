@@ -44,7 +44,6 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
         super.onCreate(savedInstanceState)
         //Calling setRetainInstance(true) in a Fragment’s onCreate method will keep a fragment instance across configuration
         // changes (instead of destroying and recreating it).
-        retainInstance = true
         enterTransition = MaterialElevationScale(/* growing= */ true)
     }
 
