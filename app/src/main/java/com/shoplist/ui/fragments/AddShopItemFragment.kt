@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -53,10 +52,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
         super.onCreate(savedInstanceState)
         //Calling setRetainInstance(true) in a Fragment’s onCreate method will keep a fragment instance across configuration
         // changes (instead of destroying and recreating it).
-        retainInstance = true
         enterTransition = MaterialElevationScale(/* growing= */ true)
-        //exitTransition = MaterialElevationScale(/* growing= */ false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
