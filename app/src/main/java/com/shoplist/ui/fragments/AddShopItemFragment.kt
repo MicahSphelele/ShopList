@@ -31,7 +31,7 @@ import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
+class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryAdapter.CategoryListener {
 
     companion object {
         const val ACTION = "action"
@@ -57,14 +57,6 @@ class AddShopItemFragment : Fragment(), CategoryAdapter.CategoryListener {
         enterTransition = MaterialElevationScale(/* growing= */ true)
         //exitTransition = MaterialElevationScale(/* growing= */ false)
 
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_add_shop_item, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
