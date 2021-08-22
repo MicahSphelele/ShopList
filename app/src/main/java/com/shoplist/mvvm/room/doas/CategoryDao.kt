@@ -17,10 +17,10 @@ interface CategoryDao {
     @Delete
     suspend fun delete(category: Category) : Int
 
-    @Query("SELECT * FROM ${Constants.CAT_TABLE}")
+    @Query("SELECT * FROM ${Constants.CATEGORY_TABLE}")
     fun getAllCategories() : LiveData<List<Category>>
 
-    @Query("SELECT * FROM ${Constants.CAT_TABLE} WHERE categoryId=:id")
+    @Query("SELECT * FROM ${Constants.CATEGORY_TABLE} WHERE categoryId=:id")
     suspend fun getCategoryById(id:Int) : Category
 
 }
