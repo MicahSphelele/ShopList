@@ -19,7 +19,7 @@ object Constants {
 
     const val CATEGORY_TABLE = "category"
     const val CATEGORY_ID = "categoryId"
-    const val CAT_NAME = "categoryName"
+    const val CATEGORY_NAME = "categoryName"
     const val CAT_IMAGE = "categoryImage"
 
     const val ACTION_EDIT_VAL = "edit"
