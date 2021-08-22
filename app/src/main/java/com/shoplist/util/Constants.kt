@@ -18,7 +18,7 @@ object Constants {
     const val SHOP_IS_MARKED = "item_marked"
 
     const val CATEGORY_TABLE = "category"
-    const val CAT_ID = "categoryId"
+    const val CATEGORY_ID = "categoryId"
     const val CAT_NAME = "categoryName"
     const val CAT_IMAGE = "categoryImage"
 
