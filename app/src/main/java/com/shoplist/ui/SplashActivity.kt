@@ -5,16 +5,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import com.shoplist.R
+import com.shoplist.databinding.ActivitySplashBinding
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_splash.*
 import java.util.concurrent.TimeUnit
 
 @AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivitySplashBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +25,10 @@ class SplashActivity : AppCompatActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        setContentView(R.layout.activity_splash)
+        
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_splash)
 
-        txtVersion.text = Constants.getAppVersion(this.application)
+        binding.appVersion = Constants.getAppVersion(this.application)
     }
 
     @SuppressLint("CheckResult")
