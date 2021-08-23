@@ -11,7 +11,7 @@ data class Category(
     @ColumnInfo(name = Constants.CATEGORY_ID)
     var id: Int = 0,
     @ColumnInfo(name = Constants.CATEGORY_NAME)
-    var catName: String,
+    var categoryName: String,
     @ColumnInfo(name = Constants.CATEGORY_IMAGE)
     var catImage: Int
 )

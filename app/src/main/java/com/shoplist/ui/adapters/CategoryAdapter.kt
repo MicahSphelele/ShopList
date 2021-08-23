@@ -31,7 +31,7 @@ class CategoryAdapter :
         val category = list[position]
 
         holder.run {
-            categoryName.text = category.catName
+            categoryName.text = category.categoryName
             categoryImage.setImageDrawable(
                 ContextCompat.getDrawable(
                     itemView.context,
@@ -55,7 +55,7 @@ class CategoryAdapter :
 
     private val diffCallBack = object : DiffUtil.ItemCallback<Category>() {
         override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
-            return oldItem.catName == newItem.catName
+            return oldItem.categoryName == newItem.categoryName
         }
 
         override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {

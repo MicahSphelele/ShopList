@@ -95,7 +95,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
     override fun onCategoryClicked(category: Category) {
         this.category = category
         bottomSheetDialog.dismiss()
-        btnSpinner.text = category.catName
+        btnSpinner.text = category.categoryName
     }
 
     @SuppressLint("InflateParams")
@@ -136,7 +136,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
                 lifecycleScope.launch {
                     if (categoryViewModel.getCategoryById(shopItem.categoryId) != null) {
                         category = categoryViewModel.getCategoryById(shopItem.categoryId)!!
-                        btnSpinner.text = category.catName
+                        btnSpinner.text = category.categoryName
                     }
                 }
             }
