@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -21,6 +22,11 @@ fun ViewGroup.viewHolderItemBinding(resId: Int): ViewDataBinding {
 
 fun Context.getViewBinder(layout: Int): ViewDataBinding {
     return DataBindingUtil.inflate(LayoutInflater.from(this), layout, null, false)
+}
+
+fun Context.hideDeviceSoftKeyboard(view: View) {
+    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
 
