@@ -93,7 +93,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
         hideKeyBoard()
     }
 
-    override fun onCategoryClicked(category: Category) {
+    override fun onCategoryClick(category: Category) {
         this.category = category
         bottomSheetDialog.dismiss()
         btnSpinner.text = category.categoryName

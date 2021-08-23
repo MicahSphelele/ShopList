@@ -26,7 +26,7 @@ class CategoryAdapter :
         val category = list[position]
         holder.viewBinder.category = category
         holder.itemView.setOnClickListener {
-            listener.onCategoryClicked(category)
+            listener.onCategoryClick(category)
         }
     }
 
@@ -55,6 +55,6 @@ class CategoryAdapter :
         RecyclerView.ViewHolder(viewBinder.root)
 
     interface CategoryListener {
-        fun onCategoryClicked(category: Category)
+        fun onCategoryClick(category: Category)
     }
 }
