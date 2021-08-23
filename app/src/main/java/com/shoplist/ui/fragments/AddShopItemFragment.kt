@@ -1,22 +1,19 @@
 package com.shoplist.ui.fragments
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.databinding.BottomDialogCategoriesBinding
+import com.shoplist.databinding.FragmentAddShopItemBinding
 import com.shoplist.models.Category
 import com.shoplist.models.ShopItem
 import com.shoplist.models.ShopItemParcelable
@@ -25,8 +22,8 @@ import com.shoplist.mvvm.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
 import com.shoplist.util.getViewBinder
+import com.shoplist.util.hideDeviceSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -41,7 +38,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
 
     private val categoryViewModel by viewModels<CategoryViewModel>()
     private val shopItemViewModel by viewModels<ShopItemViewModel>()
-
+    private lateinit var binding: FragmentAddShopItemBinding
     private lateinit var action: String
     private lateinit var bottomSheetDialog: BottomSheetDialog
     private lateinit var category: Category
@@ -59,22 +56,23 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         action = requireArguments().getString(ACTION, "")
+
+        binding = FragmentAddShopItemBinding.bind(view)
 
         setDataAccordingToAction(action)
 
-        btnBack.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             findNavController().navigateUp()
-            hideKeyBoard()
+            requireContext().hideDeviceSoftKeyboard(requireView())
         }
 
-        btnSpinner.setOnClickListener {
+        binding.btnSpinner.setOnClickListener {
             bottomSheetDialog = categoryBottomDialog()
             bottomSheetDialog.show()
         }
 
-        btnAddItem.setOnClickListener {
+        binding.btnAddItem.setOnClickListener {
             insertOrUpdate()
         }
 
@@ -86,19 +84,17 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
             categoryAdapter.setCategories(it)
             categoryAdapter.setListener(this)
         })
-
-
     }
 
     override fun onPause() {
         super.onPause()
-        hideKeyBoard()
+        requireContext().hideDeviceSoftKeyboard(requireView())
     }
 
     override fun onCategoryClick(category: Category) {
         this.category = category
         bottomSheetDialog.dismiss()
-        btnSpinner.text = category.categoryName
+        binding.btnSpinner.text = category.categoryName
     }
 
     @SuppressLint("InflateParams")
@@ -114,59 +110,54 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
         return bottomDialog
     }
 
-    private fun hideKeyBoard() {
-        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(view?.windowToken, 0)
-    }
-
     private fun setDataAccordingToAction(act: String) {
         if (act == Constants.ACTION_EDIT_VAL) {
-            txtTitle.text = requireActivity().getText(R.string._edit_item)
-            btnAddItem.text = requireActivity().getText(R.string.edit_item)
+            binding.txtTitle.text = requireActivity().getText(R.string._edit_item)
+            binding.btnAddItem.text = requireActivity().getText(R.string.edit_item)
             val shopItem: ShopItemParcelable? = requireArguments().getParcelable(PARCELABLE)
 
             if (shopItem?.id != null) {
                 shopItemId = shopItem.id
             }
 
-            editItemName.setText(shopItem?.name)
-            editItemCost.setText(shopItem?.itemCost.toString())
+            binding.editItemName.setText(shopItem?.name)
+            binding.editItemCost.setText(shopItem?.itemCost.toString())
 
             if (shopItem?.categoryId != null) {
 
                 lifecycleScope.launch {
                     if (categoryViewModel.getCategoryById(shopItem.categoryId) != null) {
                         category = categoryViewModel.getCategoryById(shopItem.categoryId)!!
-                        btnSpinner.text = category.categoryName
+                        binding.btnSpinner.text = category.categoryName
                     }
                 }
             }
 
-            numberPicker.number = shopItem?.quantity.toString()
+            binding.numberPicker.number = shopItem?.quantity.toString()
         }
     }
 
     private fun insertOrUpdate() {
-        val itemName = editItemName.text.toString()
-        var itemQuantity = numberPicker.number.toInt()
+        val itemName = binding.editItemName.text.toString()
+        var itemQuantity = binding.numberPicker.number.toInt()
 
         if (itemName.isEmpty()) {
-            editItemName.error = "Item name is required"
+            binding.editItemName.error = "Item name is required"
             return
         }
-        if (editItemCost.text.toString().isEmpty()) {
-            editItemCost.error = "Item cost is required"
+        if (binding.editItemCost.text.toString().isEmpty()) {
+            binding.editItemCost.error = "Item cost is required"
             return
         }
-        if (btnSpinner.text.toString().equals(getString(R.string.item_category), true)) {
-            btnSpinner.error = "Item category is required"
+        if (binding.btnSpinner.text.toString().equals(getString(R.string.item_category), true)) {
+            binding.btnSpinner.error = "Item category is required"
             return
         }
         if (itemQuantity == 0) {
             itemQuantity = 1
         }
         val categoryId = category.id
-        val itemCost = editItemCost.text.toString().toDouble()
+        val itemCost = binding.editItemCost.text.toString().toDouble()
 
         if (action == Constants.ACTION_ADD_VAL) {
             lifecycleScope.launch {
@@ -180,8 +171,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
                     )
                 )
             }
-
-            Toast.makeText(context, "Item added successfully!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Item successfully added!", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
             return
         }
@@ -192,7 +182,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
         lifecycleScope.launch {
             shopItemViewModel.update(shopItem)
         }
-        Toast.makeText(context, "Item Updated successfully!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "Item updated successfully!", Toast.LENGTH_SHORT).show()
         findNavController().navigateUp()
 
 
