@@ -62,8 +62,6 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
 
         setDataAccordingToAction(action)
 
-        categoryAdapter.setListener(this)
-
         btnBack.setOnClickListener {
             findNavController().navigateUp()
             hideKeyBoard()
@@ -84,7 +82,10 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
         super.onStart()
         categoryViewModel.getAllCategories()?.observe(viewLifecycleOwner, {
             categoryAdapter.setCategories(it)
+            categoryAdapter.setListener(this)
         })
+
+
     }
 
     override fun onPause() {

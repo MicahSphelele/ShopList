@@ -1,16 +1,13 @@
 package com.shoplist.ui.adapters
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
+import com.shoplist.databinding.ItemCategoryBinding
 import com.shoplist.models.Category
+import com.shoplist.util.viewHolderItemBinding
 
 class CategoryAdapter :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
@@ -19,34 +16,23 @@ class CategoryAdapter :
     private lateinit var listener: CategoryListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
-        )
+        return ViewHolder(parent.viewHolderItemBinding(R.layout.item_category) as ItemCategoryBinding)
     }
 
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val category = list[position]
 
-        holder.run {
-            categoryName.text = category.categoryName
-            categoryImage.setImageDrawable(
-                ContextCompat.getDrawable(
-                    itemView.context,
-                    category.categoryImage
-                )
-            )
-            itemView.setOnClickListener {
-                listener.onCategoryClicked(category)
-            }
+        val category = list[position]
+        holder.viewBinder.category = category
+        holder.itemView.setOnClickListener {
+            listener.onCategoryClicked(category)
         }
     }
 
     fun setCategories(list: List<Category>?) {
         this.list = list!!
-        this.asyncListDiffer.submitList(this.list)
+        asyncListDiffer.submitList(this.list)
     }
 
     fun setListener(listener: CategoryListener) {
@@ -65,10 +51,8 @@ class CategoryAdapter :
 
     private val asyncListDiffer = AsyncListDiffer(this, diffCallBack)
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        var categoryName: TextView = v.findViewById(R.id.categoryName)
-        var categoryImage: ImageView = v.findViewById(R.id.categoryImage)
-    }
+    inner class ViewHolder(val viewBinder: ItemCategoryBinding) :
+        RecyclerView.ViewHolder(viewBinder.root)
 
     interface CategoryListener {
         fun onCategoryClicked(category: Category)
