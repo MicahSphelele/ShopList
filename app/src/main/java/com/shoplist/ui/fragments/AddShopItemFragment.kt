@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
+import com.shoplist.databinding.BottomDialogCategoriesBinding
 import com.shoplist.models.Category
 import com.shoplist.models.ShopItem
 import com.shoplist.models.ShopItemParcelable
@@ -23,6 +24,7 @@ import com.shoplist.mvvm.viewmodels.CategoryViewModel
 import com.shoplist.mvvm.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
+import com.shoplist.util.getViewBinder
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add_shop_item.*
 import kotlinx.coroutines.launch
@@ -105,12 +107,10 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
         bottomDialog.dismissWithAnimation = true
         bottomDialog.setCancelable(true)
         bottomDialog.dismissWithAnimation = true
-        val v = LayoutInflater.from(context).inflate(R.layout.bottom_dialog_categories, null)
-        val recyclerView = v.findViewById<RecyclerView>(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.adapter = categoryAdapter
-        bottomDialog.setContentView(v)
-
+        val dialogBinder = requireContext().getViewBinder(R.layout.bottom_dialog_categories) as BottomDialogCategoriesBinding
+        dialogBinder.recyclerView.layoutManager = LinearLayoutManager(context)
+        dialogBinder.recyclerView.adapter = categoryAdapter
+        bottomDialog.setContentView(dialogBinder.root)
         return bottomDialog
     }
 
