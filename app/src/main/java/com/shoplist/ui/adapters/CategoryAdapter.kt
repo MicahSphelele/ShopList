@@ -35,7 +35,7 @@ class CategoryAdapter :
             categoryImage.setImageDrawable(
                 ContextCompat.getDrawable(
                     itemView.context,
-                    category.catImage
+                    category.categoryImage
                 )
             )
             itemView.setOnClickListener {
