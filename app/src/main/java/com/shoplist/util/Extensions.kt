@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.google.android.material.imageview.ShapeableImageView
 
-fun ViewGroup.viewHolderItemBinding(resId: Int): ViewDataBinding {
+fun ViewGroup.viewHolderItemBinding(@LayoutRes resId: Int): ViewDataBinding {
     return DataBindingUtil.inflate(
         LayoutInflater.from(this.context),
         resId,

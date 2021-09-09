@@ -3,12 +3,7 @@ package com.shoplist.ui.adapters
 import android.annotation.SuppressLint
 import android.graphics.Paint
 import android.view.ContextThemeWrapper
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
@@ -16,8 +11,10 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
+import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.models.ShopItem
 import com.shoplist.util.Constants
+import com.shoplist.util.viewHolderItemBinding
 
 class ShopItemAdapter :
     RecyclerView.Adapter<ShopItemAdapter.ViewHolder>() {
@@ -26,9 +23,7 @@ class ShopItemAdapter :
     private lateinit var listener: ShopItemListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.item_shop, parent, false)
-        )
+        return ViewHolder(parent.viewHolderItemBinding(R.layout.item_shop) as ItemShopBinding)
     }
 
     override fun getItemCount(): Int = asyncListDiffer.currentList.size
@@ -38,7 +33,7 @@ class ShopItemAdapter :
         if (list.isNotEmpty()) {
             val shopItem = list[position]
 
-            holder.run {
+            holder.viewBinder.run {
                 itemName.text = shopItem.name
                 itemCost.text = Constants.formatCurrency(shopItem.itemCost)
                 itemQuantity.text = String.format(
@@ -49,7 +44,7 @@ class ShopItemAdapter :
                 btnMore.setOnClickListener {
 
                     val popup = PopupMenu(
-                        ContextThemeWrapper(itemView.context, R.style.ItemPopUpMenuStyle),
+                        ContextThemeWrapper(root.context, R.style.ItemPopUpMenuStyle),
                         btnMore
                     )
                     popup.inflate(R.menu.shop_item_menu)
@@ -67,7 +62,7 @@ class ShopItemAdapter :
                     val menuPopupHelper =
                         MenuPopupHelper(
                             ContextThemeWrapper(
-                                itemView.context,
+                                root.context,
                                 R.style.ItemPopUpMenuStyle
                             ), popup.menu as MenuBuilder, btnMore
                         )
@@ -89,7 +84,7 @@ class ShopItemAdapter :
 
                 //Set Strike through according to OnCheckedChangeListener
                 itemCheck.setOnCheckedChangeListener { _, isChecked ->
-                    setStrikeThrough(holder, isChecked)
+                    setStrikeThrough(this, isChecked)
                     shopItem.isMarked = isChecked
                     listener.onShopItemMarked(shopItem)
                 }
@@ -107,11 +102,12 @@ class ShopItemAdapter :
         this.listener = listener
     }
 
-    private fun setStrikeThrough(holder: ViewHolder, isSet: Boolean) {
+    private fun setStrikeThrough(binder: ItemShopBinding, isSet: Boolean) {
         if (isSet) {
-            holder.itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            holder.itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            holder.itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+
+            binder.itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binder.itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            binder.itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
     }
 
@@ -127,12 +123,8 @@ class ShopItemAdapter :
 
     private val asyncListDiffer = AsyncListDiffer(this, diffCallBack)
 
-    class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        var itemName: TextView = v.findViewById(R.id.itemName)
-        var itemCost: TextView = v.findViewById(R.id.itemCost)
-        var itemQuantity: TextView = v.findViewById(R.id.itemQuantity)
-        var itemCheck: CheckBox = v.findViewById(R.id.itemCheck)
-        var btnMore: ImageView = v.findViewById(R.id.btnMore)
+    class ViewHolder(val viewBinder: ItemShopBinding) : RecyclerView.ViewHolder(viewBinder.root) {
+
     }
 
     interface ShopItemListener {
