@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.databinding.ItemCategoryBinding
-import com.shoplist.models.Category
+import com.shoplist.domain.models.Category
 import com.shoplist.util.viewHolderItemBinding
 
 class CategoryAdapter :

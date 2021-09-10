@@ -2,7 +2,7 @@ package com.shoplist.mvvm.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.shoplist.models.Category
+import com.shoplist.domain.models.Category
 import com.shoplist.mvvm.room.repos.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

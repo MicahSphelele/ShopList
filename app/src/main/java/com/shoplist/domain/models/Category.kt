@@ -1,4 +1,4 @@
-package com.shoplist.models
+package com.shoplist.domain.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

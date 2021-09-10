@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.shoplist.models.Category
-import com.shoplist.models.ShopItem
+import com.shoplist.domain.models.Category
+import com.shoplist.domain.models.ShopItem
 import com.shoplist.mvvm.room.doas.CategoryDao
 import com.shoplist.mvvm.room.doas.ShopItemDao
 import com.shoplist.util.Constants

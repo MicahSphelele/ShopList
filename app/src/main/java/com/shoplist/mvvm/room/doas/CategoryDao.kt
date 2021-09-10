@@ -2,7 +2,7 @@ package com.shoplist.mvvm.room.doas
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.shoplist.models.Category
+import com.shoplist.domain.models.Category
 import com.shoplist.util.Constants
 
 @Dao

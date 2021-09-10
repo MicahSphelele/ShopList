@@ -2,13 +2,9 @@ package com.shoplist.mvvm.room.repos
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.shoplist.models.ShopItem
+import com.shoplist.domain.models.ShopItem
 import com.shoplist.mvvm.room.AppDB
 import com.shoplist.mvvm.room.doas.ShopItemDao
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 class ShopItemRepository @Inject constructor(application: Application) {

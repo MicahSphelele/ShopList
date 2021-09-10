@@ -14,9 +14,9 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.databinding.BottomDialogCategoriesBinding
 import com.shoplist.databinding.FragmentAddShopItemBinding
-import com.shoplist.models.Category
-import com.shoplist.models.ShopItem
-import com.shoplist.models.ShopItemParcelable
+import com.shoplist.domain.models.Category
+import com.shoplist.domain.models.ShopItem
+import com.shoplist.domain.models.ShopItemParcelable
 import com.shoplist.mvvm.viewmodels.CategoryViewModel
 import com.shoplist.mvvm.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.CategoryAdapter

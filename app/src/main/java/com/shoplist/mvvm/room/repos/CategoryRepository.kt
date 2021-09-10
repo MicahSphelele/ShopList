@@ -2,7 +2,7 @@ package com.shoplist.mvvm.room.repos
 
 import android.app.Application
 import androidx.lifecycle.LiveData
-import com.shoplist.models.Category
+import com.shoplist.domain.models.Category
 import com.shoplist.mvvm.room.AppDB
 import com.shoplist.mvvm.room.doas.CategoryDao
 import javax.inject.Inject

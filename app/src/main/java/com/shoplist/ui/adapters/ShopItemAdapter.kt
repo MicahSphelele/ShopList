@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.databinding.ItemShopBinding
-import com.shoplist.models.ShopItem
+import com.shoplist.domain.models.ShopItem
 import com.shoplist.util.Constants
 import com.shoplist.util.viewHolderItemBinding
 
