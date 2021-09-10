@@ -1,4 +1,4 @@
-package com.shoplist.mvvm.viewmodels
+package com.shoplist.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

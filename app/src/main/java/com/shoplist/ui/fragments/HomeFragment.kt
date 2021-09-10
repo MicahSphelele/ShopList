@@ -17,7 +17,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.domain.models.ShopItemParcelable
-import com.shoplist.mvvm.viewmodels.ShopItemViewModel
+import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.ShopItemAdapter
 import com.shoplist.ui.custom.BtnAddDragListener
 import com.shoplist.ui.custom.RecyclerViewItemClickListener

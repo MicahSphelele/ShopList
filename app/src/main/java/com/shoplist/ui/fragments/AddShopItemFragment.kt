@@ -18,7 +18,7 @@ import com.shoplist.domain.models.Category
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.domain.models.ShopItemParcelable
 import com.shoplist.viewmodels.CategoryViewModel
-import com.shoplist.mvvm.viewmodels.ShopItemViewModel
+import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
 import com.shoplist.util.getViewBinder
