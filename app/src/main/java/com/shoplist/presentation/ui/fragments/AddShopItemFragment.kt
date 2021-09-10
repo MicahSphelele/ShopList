@@ -21,8 +21,8 @@ import com.shoplist.viewmodels.CategoryViewModel
 import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.presentation.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
-import com.shoplist.util.getViewBinder
-import com.shoplist.util.hideDeviceSoftKeyboard
+import com.shoplist.extensions.getViewBinder
+import com.shoplist.extensions.hideDeviceSoftKeyboard
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject

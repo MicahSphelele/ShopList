@@ -14,7 +14,7 @@ import com.shoplist.R
 import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.util.Constants
-import com.shoplist.util.viewHolderItemBinding
+import com.shoplist.extensions.viewHolderItemBinding
 
 class ShopItemAdapter :
     RecyclerView.Adapter<ShopItemAdapter.ViewHolder>() {

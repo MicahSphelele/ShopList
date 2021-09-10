@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.databinding.ItemCategoryBinding
 import com.shoplist.domain.models.Category
-import com.shoplist.util.viewHolderItemBinding
+import com.shoplist.extensions.viewHolderItemBinding
 
 class CategoryAdapter :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {

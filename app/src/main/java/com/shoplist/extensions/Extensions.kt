@@ -1,4 +1,4 @@
-package com.shoplist.util
+package com.shoplist.extensions
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -26,8 +26,8 @@ fun Context.getViewBinder(layout: Int): ViewDataBinding {
 }
 
 fun Context.hideDeviceSoftKeyboard(view: View) {
-    val imm = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-    imm.hideSoftInputFromWindow(view.windowToken, 0)
+    val inputMethodManger = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManger.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
 
