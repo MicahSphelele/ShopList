@@ -3,8 +3,8 @@ package com.shoplist.domain.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.shoplist.domain.models.Category
-import com.shoplist.local.local.AppDB
-import com.shoplist.local.local.doas.CategoryDao
+import com.shoplist.local.AppDB
+import com.shoplist.local.doas.CategoryDao
 import javax.inject.Inject
 
 class CategoryRepository @Inject constructor(application: Application) {
