@@ -1,4 +1,4 @@
-package com.shoplist.mvvm.room.repos
+package com.shoplist.domain.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
