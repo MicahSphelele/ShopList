@@ -1,4 +1,4 @@
-package com.shoplist.mvvm.room.doas
+package com.shoplist.local.doas
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

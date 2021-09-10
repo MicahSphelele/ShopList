@@ -1,4 +1,4 @@
-package com.shoplist.mvvm.room
+package com.shoplist.local
 
 import android.content.Context
 import androidx.room.Database
@@ -8,8 +8,8 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.shoplist.domain.models.Category
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.mvvm.room.doas.CategoryDao
-import com.shoplist.mvvm.room.doas.ShopItemDao
+import com.shoplist.local.local.doas.CategoryDao
+import com.shoplist.local.local.doas.ShopItemDao
 import com.shoplist.util.Constants
 
 @Database(entities = [Category::class, ShopItem::class], version = 2, exportSchema = false)
