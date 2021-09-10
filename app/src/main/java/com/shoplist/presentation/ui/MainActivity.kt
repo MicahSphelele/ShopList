@@ -1,4 +1,4 @@
-package com.shoplist.ui
+package com.shoplist.presentation.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.shoplist.ui.adapters
+package com.shoplist.presentation.ui.adapters
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer

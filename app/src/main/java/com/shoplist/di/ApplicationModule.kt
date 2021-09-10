@@ -3,8 +3,8 @@ package com.shoplist.di
 import android.content.Context
 import com.shoplist.ShopListApplication
 import com.shoplist.local.local.AppDB
-import com.shoplist.ui.adapters.CategoryAdapter
-import com.shoplist.ui.adapters.ShopItemAdapter
+import com.shoplist.presentation.ui.adapters.CategoryAdapter
+import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

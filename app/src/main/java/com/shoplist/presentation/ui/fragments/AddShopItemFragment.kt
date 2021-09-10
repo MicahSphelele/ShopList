@@ -1,4 +1,4 @@
-package com.shoplist.ui.fragments
+package com.shoplist.presentation.ui.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -19,7 +19,7 @@ import com.shoplist.domain.models.ShopItem
 import com.shoplist.domain.models.ShopItemParcelable
 import com.shoplist.viewmodels.CategoryViewModel
 import com.shoplist.viewmodels.ShopItemViewModel
-import com.shoplist.ui.adapters.CategoryAdapter
+import com.shoplist.presentation.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
 import com.shoplist.util.getViewBinder
 import com.shoplist.util.hideDeviceSoftKeyboard

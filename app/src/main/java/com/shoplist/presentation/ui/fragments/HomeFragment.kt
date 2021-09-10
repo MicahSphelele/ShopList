@@ -1,4 +1,4 @@
-package com.shoplist.ui.fragments
+package com.shoplist.presentation.ui.fragments
 
 import android.content.ClipData
 import android.os.Build
@@ -18,9 +18,9 @@ import com.shoplist.R
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.domain.models.ShopItemParcelable
 import com.shoplist.viewmodels.ShopItemViewModel
-import com.shoplist.ui.adapters.ShopItemAdapter
-import com.shoplist.ui.custom.BtnAddDragListener
-import com.shoplist.ui.custom.RecyclerViewItemClickListener
+import com.shoplist.presentation.ui.adapters.ShopItemAdapter
+import com.shoplist.presentation.ui.custom.BtnAddDragListener
+import com.shoplist.presentation.ui.custom.RecyclerViewItemClickListener
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_home.*

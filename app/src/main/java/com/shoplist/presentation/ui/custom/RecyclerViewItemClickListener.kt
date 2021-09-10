@@ -1,4 +1,4 @@
-package com.shoplist.ui.custom
+package com.shoplist.presentation.ui.custom
 
 import android.content.Context
 import android.view.GestureDetector
