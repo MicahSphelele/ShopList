@@ -2,6 +2,7 @@ package com.shoplist.di
 
 import android.content.Context
 import com.shoplist.ShopListApplication
+import com.shoplist.mvvm.room.AppDB
 import com.shoplist.ui.adapters.CategoryAdapter
 import com.shoplist.ui.adapters.ShopItemAdapter
 import dagger.Module
@@ -19,6 +20,12 @@ object ApplicationModule {
     @Provides
     fun providesApplication(@ApplicationContext context: Context) : ShopListApplication {
         return context as ShopListApplication
+    }
+
+    @Singleton
+    @Provides
+    fun providesApplicationDatabase(@ApplicationContext context: Context) : AppDB {
+        return AppDB.getInstance(context)
     }
 
     @Provides
