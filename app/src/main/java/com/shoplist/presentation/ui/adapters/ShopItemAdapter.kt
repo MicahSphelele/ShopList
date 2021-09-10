@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.domain.models.ShopItem
+import com.shoplist.extensions.showPopupMenu
 import com.shoplist.util.Constants
 import com.shoplist.extensions.viewHolderItemBinding
 
@@ -42,32 +43,9 @@ class ShopItemAdapter :
                 )
 
                 btnMore.setOnClickListener {
-
-                    val popup = PopupMenu(
-                        ContextThemeWrapper(root.context, R.style.ItemPopUpMenuStyle),
-                        btnMore
-                    )
-                    popup.inflate(R.menu.shop_item_menu)
-                    popup.setOnMenuItemClickListener {
-
-                        if (it.itemId == R.id.item_edit) {
-                            listener.onAction(shopItem, ShopItemAction.EDIT)
-                        }
-                        if (it.itemId == R.id.item_delete) {
-                            listener.onAction(shopItem, ShopItemAction.DELETE)
-                        }
-                        true
+                    showPopupMenu(btnMore) { action ->
+                        listener.onAction(shopItem, action)
                     }
-
-                    val menuPopupHelper =
-                        MenuPopupHelper(
-                            ContextThemeWrapper(
-                                root.context,
-                                R.style.ItemPopUpMenuStyle
-                            ), popup.menu as MenuBuilder, btnMore
-                        )
-                    menuPopupHelper.setForceShowIcon(true)
-                    menuPopupHelper.show()
                 }
 
                 if (shopItem.isMarked) {
