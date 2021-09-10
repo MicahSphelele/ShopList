@@ -2,7 +2,7 @@ package com.shoplist.di
 
 import android.app.Application
 import com.shoplist.domain.repository.CategoryRepository
-import com.shoplist.mvvm.room.repos.ShopItemRepository
+import com.shoplist.domain.repository.ShopItemRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
