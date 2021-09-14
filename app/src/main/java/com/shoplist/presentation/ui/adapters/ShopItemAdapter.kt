@@ -34,8 +34,9 @@ class ShopItemAdapter :
         if (list.isNotEmpty()) {
             val shopItem = list[position]
 
+            holder.viewBinder.stringItemName = shopItem.name
+
             holder.viewBinder.run {
-                itemName.text = shopItem.name
                 itemCost.text = Constants.formatCurrency(shopItem.itemCost)
                 itemQuantity.text = String.format(
                     "%s ${Constants.returnItemsOrItem(shopItem.quantity)}",

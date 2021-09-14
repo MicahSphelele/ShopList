@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="stringItemName"
+            type="String" />
+    </data>
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -34,6 +39,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_marginStart="8dp"
             android:textStyle="bold"
+            android:text="@{stringItemName}"
             app:layout_constraintStart_toEndOf="@+id/itemCheck"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Diazepam" />
