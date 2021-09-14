@@ -52,7 +52,7 @@ fun ItemShopBinding.showPopupMenu(view: View,itemSelected: (ShopItemAction) -> U
 }
 
 fun Context.getViewBinder(layout: Int): ViewDataBinding {
-    return DataBindingUtil.inflate(LayoutInflater.from(this), layout, null, false)
+    return DataBindingUtil.bind(LayoutInflater.from(this).inflate(layout, null))!!
 }
 
 fun Context.hideDeviceSoftKeyboard(view: View) {
