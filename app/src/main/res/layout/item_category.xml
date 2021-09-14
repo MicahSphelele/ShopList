@@ -5,9 +5,6 @@
         <variable
             name="category"
             type="com.shoplist.domain.models.Category" />
-        <variable
-            name="listener"
-            type="com.shoplist.ui.adapters.CategoryAdapter.CategoryListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
