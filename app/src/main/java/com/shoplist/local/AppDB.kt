@@ -8,8 +8,8 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.shoplist.domain.models.Category
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.local.local.doas.CategoryDao
-import com.shoplist.local.local.doas.ShopItemDao
+import com.shoplist.local.doas.CategoryDao
+import com.shoplist.local.doas.ShopItemDao
 import com.shoplist.util.Constants
 
 @Database(entities = [Category::class, ShopItem::class], version = 2, exportSchema = false)
