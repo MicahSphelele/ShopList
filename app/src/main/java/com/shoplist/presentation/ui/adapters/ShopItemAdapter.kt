@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.domain.models.ShopItem
+import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.extensions.showPopupMenu
 import com.shoplist.util.Constants
 import com.shoplist.extensions.viewHolderItemBinding
@@ -35,13 +36,9 @@ class ShopItemAdapter :
             val shopItem = list[position]
 
             holder.viewBinder.shopItem = shopItem
-
+            holder.viewBinder.formattedPrice = Constants.formatCurrency(shopItem.itemCost)
             holder.viewBinder.run {
-                itemCost.text = Constants.formatCurrency(shopItem.itemCost)
-                itemQuantity.text = String.format(
-                    "%s ${Constants.returnItemsOrItem(shopItem.quantity)}",
-                    shopItem.quantity
-                )
+                itemQuantity.text = shopItem.quantity.returnItemsOrItem()
 
                 btnMore.setOnClickListener {
                     showPopupMenu(btnMore) { action ->
@@ -83,7 +80,6 @@ class ShopItemAdapter :
 
     private fun setStrikeThrough(binder: ItemShopBinding, isSet: Boolean) {
         if (isSet) {
-
             binder.itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binder.itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
             binder.itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG

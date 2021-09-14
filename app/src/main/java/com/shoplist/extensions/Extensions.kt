@@ -55,6 +55,14 @@ fun Context.getViewBinder(layout: Int): ViewDataBinding {
     return DataBindingUtil.bind(LayoutInflater.from(this).inflate(layout, null))!!
 }
 
+fun Int.returnItemsOrItem(): String {
+    return if (this > 1) {
+        "$this items"
+    } else {
+        "$this item"
+    }
+}
+
 fun Context.hideDeviceSoftKeyboard(view: View) {
     val inputMethodManger = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManger.hideSoftInputFromWindow(view.windowToken, 0)

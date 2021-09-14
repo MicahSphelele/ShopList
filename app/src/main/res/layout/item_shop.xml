@@ -5,8 +5,10 @@
             name="shopItem"
             type="com.shoplist.domain.models.ShopItem" />
         <variable
-            name="constants"
-            type="com.shoplist.util.Constants" />
+            name="formattedPrice"
+            type="String" />
+
+        <import type="com.shoplist.extensions.ExtensionsKt"/>
 
     </data>
 <com.google.android.material.card.MaterialCardView
@@ -55,7 +57,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textStyle="italic"
             android:layout_marginStart="8dp"
-            android:text="@{constants.formatCurrency(shopItem.itemCost)}"
+            android:text="@{formattedPrice}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/itemCheck"
             app:layout_constraintTop_toBottomOf="@+id/itemName"

@@ -51,12 +51,4 @@ object Constants {
     fun getAppVersion(application: Application): String {
         return application.packageManager.getPackageInfo(application.packageName, 0).versionName
     }
-
-    fun returnItemsOrItem(count: Int): String {
-        return if (count > 1) {
-            "items"
-        } else {
-            "item"
-        }
-    }
 }

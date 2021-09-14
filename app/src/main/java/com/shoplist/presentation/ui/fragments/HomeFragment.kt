@@ -17,6 +17,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.domain.models.ShopItemParcelable
+import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import com.shoplist.presentation.ui.custom.BtnAddDragListener
@@ -28,7 +29,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemListener, BtnAddDragListener.Listener {
+class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemListener,
+    BtnAddDragListener.Listener {
 
     private val shopItemViewModel by viewModels<ShopItemViewModel>()
 
@@ -57,13 +59,12 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
         recyclerView?.let {
-            recyclerView?.apply {
+            it.apply {
                 layoutManager = linearLayoutManager
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                         if (dy > 0) {
-
                             if (btnAdd.isShown) {
                                 btnAdd.hide()
                                 isBtnAddHidden = true
@@ -153,27 +154,16 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
             hideShowImageAndText(false)
         })
 
-        shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, Observer {
+        shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, {
             if (it != null) {
                 txtCostEstimation.text = Constants.formatCurrency(it)
-                return@Observer
+                return@observe
             }
             txtCostEstimation.text = Constants.formatCurrency(0.00)
         })
 
-        shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                if (it > 1) {
-                    txtTotalMarked.text =
-                        String.format("%s ✔ ${Constants.returnItemsOrItem(it)}", it)
-                } else {
-                    txtTotalMarked.text =
-                        String.format("%s ✔ ${Constants.returnItemsOrItem(it)}", it)
-                }
-
-                return@Observer
-            }
-            txtTotalMarked.text = String.format("%s ✔ ${Constants.returnItemsOrItem(0)}", 0)
+        shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, {
+            txtTotalMarked.text = it.returnItemsOrItem()
         })
     }
 
