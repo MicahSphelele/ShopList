@@ -2,7 +2,7 @@ package com.shoplist.di
 
 import android.content.Context
 import com.shoplist.ShopListApplication
-import com.shoplist.local.local.AppDB
+import com.shoplist.local.AppDB
 import com.shoplist.presentation.ui.adapters.CategoryAdapter
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import dagger.Module
