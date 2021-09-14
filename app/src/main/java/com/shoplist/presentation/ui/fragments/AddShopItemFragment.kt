@@ -17,19 +17,20 @@ import com.shoplist.databinding.FragmentAddShopItemBinding
 import com.shoplist.domain.models.Category
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.domain.models.ShopItemParcelable
-import com.shoplist.viewmodels.CategoryViewModel
-import com.shoplist.viewmodels.ShopItemViewModel
-import com.shoplist.presentation.ui.adapters.CategoryAdapter
-import com.shoplist.util.Constants
 import com.shoplist.extensions.getViewBinder
 import com.shoplist.extensions.hideDeviceSoftKeyboard
+import com.shoplist.presentation.ui.adapters.CategoryAdapter
+import com.shoplist.util.Constants
+import com.shoplist.viewmodels.CategoryViewModel
+import com.shoplist.viewmodels.ShopItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryAdapter.CategoryListener {
+class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item),
+    CategoryAdapter.CategoryListener {
 
     companion object {
         const val ACTION = "action"
@@ -103,7 +104,8 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item), CategoryA
         bottomDialog.dismissWithAnimation = true
         bottomDialog.setCancelable(true)
         bottomDialog.dismissWithAnimation = true
-        val dialogBinder = requireContext().getViewBinder(R.layout.bottom_dialog_categories) as BottomDialogCategoriesBinding
+        val dialogBinder =
+            requireContext().getViewBinder(R.layout.bottom_dialog_categories) as BottomDialogCategoriesBinding
         dialogBinder.recyclerView.layoutManager = LinearLayoutManager(context)
         dialogBinder.recyclerView.adapter = categoryAdapter
         bottomDialog.setContentView(dialogBinder.root)
