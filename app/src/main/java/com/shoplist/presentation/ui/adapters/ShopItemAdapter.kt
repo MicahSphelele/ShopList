@@ -11,7 +11,6 @@ import com.shoplist.domain.models.ShopItem
 import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.extensions.showPopupMenu
 import com.shoplist.extensions.viewHolderItemBinding
-import com.shoplist.util.Constants
 
 class ShopItemAdapter :
     RecyclerView.Adapter<ShopItemAdapter.ViewHolder>() {
@@ -31,8 +30,6 @@ class ShopItemAdapter :
             val shopItem = list[position]
 
             holder.viewBinder.shopItem = shopItem
-
-            holder.viewBinder.formattedPrice = Constants.formatCurrency(shopItem.itemCost)
 
             holder.viewBinder.run {
                 itemQuantity.text = shopItem.quantity.returnItemsOrItem()
