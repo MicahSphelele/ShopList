@@ -4,9 +4,6 @@
         <variable
             name="shopItem"
             type="com.shoplist.domain.models.ShopItem" />
-        <variable
-            name="formattedPrice"
-            type="String" />
 
         <import type="com.shoplist.extensions.ExtensionsKt"/>
 
@@ -57,7 +54,7 @@
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textStyle="italic"
             android:layout_marginStart="8dp"
-            android:text="@{formattedPrice}"
+            app:formattedCurrency="@{shopItem.itemCost}"
             app:strikeThrough="@{shopItem.isMarked}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/itemCheck"
