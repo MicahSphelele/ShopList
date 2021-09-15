@@ -1,11 +1,13 @@
 package com.shoplist.extensions
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.view.menu.MenuBuilder
@@ -14,11 +16,13 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.android.material.textview.MaterialTextView
 import com.shoplist.R
 import com.shoplist.databinding.ItemShopBinding
-import com.shoplist.presentation.ui.adapters.ShopItemAdapter
-import com.shoplist.presentation.ui.adapters.ShopItemAdapter.*
+import com.shoplist.presentation.ui.adapters.ShopItemAdapter.ShopItemAction
+
 
 fun ViewGroup.viewHolderItemBinding(@LayoutRes resId: Int): ViewDataBinding {
     return DataBindingUtil.inflate(
@@ -71,3 +75,17 @@ fun Context.hideDeviceSoftKeyboard(view: View) {
 
 @BindingAdapter("imageDrawable")
 fun loadImage(view: ShapeableImageView, image: Int) = view.setImageDrawable(ContextCompat.getDrawable(view.context, image))
+
+@BindingAdapter("strikeThrough")
+fun strikeThrough(view: MaterialTextView, strikeThrough: Boolean) {
+    if (strikeThrough) {
+        view.paintFlags = view.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+    } else {
+        view.paintFlags = view.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+    }
+}
+
+@BindingAdapter("isItemChecked")
+fun setIsMarked(view: MaterialCheckBox, isMarked: Boolean) {
+    view.isChecked = isMarked
+}

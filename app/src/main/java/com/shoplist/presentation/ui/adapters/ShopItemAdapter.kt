@@ -1,12 +1,7 @@
 package com.shoplist.presentation.ui.adapters
 
 import android.annotation.SuppressLint
-import android.graphics.Paint
-import android.view.ContextThemeWrapper
 import android.view.ViewGroup
-import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.view.menu.MenuPopupHelper
-import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,8 +10,8 @@ import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.extensions.showPopupMenu
-import com.shoplist.util.Constants
 import com.shoplist.extensions.viewHolderItemBinding
+import com.shoplist.util.Constants
 
 class ShopItemAdapter :
     RecyclerView.Adapter<ShopItemAdapter.ViewHolder>() {
@@ -36,37 +31,25 @@ class ShopItemAdapter :
             val shopItem = list[position]
 
             holder.viewBinder.shopItem = shopItem
+
             holder.viewBinder.formattedPrice = Constants.formatCurrency(shopItem.itemCost)
+
             holder.viewBinder.run {
                 itemQuantity.text = shopItem.quantity.returnItemsOrItem()
-
+                itemCheck.isChecked = shopItem.isMarked
                 btnMore.setOnClickListener {
                     showPopupMenu(btnMore) { action ->
                         listener.onAction(shopItem, action)
                     }
                 }
 
-                if (shopItem.isMarked) {
-                    itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                    itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                    itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                }
-
-                //Set checkbox according to is marked
-                itemCheck.isChecked = shopItem.isMarked
-
-                //Set Strike through marked if marked is true
-                setStrikeThrough(this, shopItem.isMarked)
-
                 //Set Strike through according to OnCheckedChangeListener
                 itemCheck.setOnCheckedChangeListener { _, isChecked ->
-                    setStrikeThrough(this, isChecked)
                     shopItem.isMarked = isChecked
                     listener.onShopItemMarked(shopItem)
                 }
             }
         }
-
     }
 
     fun setShopItemList(list: List<ShopItem>) {
@@ -76,14 +59,6 @@ class ShopItemAdapter :
 
     fun setListener(listener: ShopItemListener) {
         this.listener = listener
-    }
-
-    private fun setStrikeThrough(binder: ItemShopBinding, isSet: Boolean) {
-        if (isSet) {
-            binder.itemName.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            binder.itemCost.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-            binder.itemQuantity.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-        }
     }
 
     private val diffCallBack = object : DiffUtil.ItemCallback<ShopItem>() {
@@ -98,9 +73,7 @@ class ShopItemAdapter :
 
     private val asyncListDiffer = AsyncListDiffer(this, diffCallBack)
 
-    class ViewHolder(val viewBinder: ItemShopBinding) : RecyclerView.ViewHolder(viewBinder.root) {
-
-    }
+    class ViewHolder(val viewBinder: ItemShopBinding) : RecyclerView.ViewHolder(viewBinder.root)
 
     interface ShopItemListener {
         fun onShopItemMarked(shopItem: ShopItem)
