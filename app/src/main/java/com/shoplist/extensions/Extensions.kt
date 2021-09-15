@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.appcompat.view.menu.MenuBuilder
@@ -16,12 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
-import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import com.shoplist.R
 import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter.ShopItemAction
+import com.shoplist.util.Constants
 
 
 fun ViewGroup.viewHolderItemBinding(@LayoutRes resId: Int): ViewDataBinding {
@@ -85,7 +84,7 @@ fun strikeThrough(view: MaterialTextView, strikeThrough: Boolean) {
     }
 }
 
-@BindingAdapter("isItemChecked")
-fun setIsMarked(view: MaterialCheckBox, isMarked: Boolean) {
-    view.isChecked = isMarked
+@BindingAdapter("formattedCurrency")
+fun setFormattedCurrency(view: MaterialTextView, itemCost: Double) {
+    view.text = Constants.formatCurrency(itemCost)
 }
