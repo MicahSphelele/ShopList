@@ -31,7 +31,7 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:text=""
-            android:checked="false"
+            android:checked="@{shopItem.isMarked}"
             android:button="@color/colorTransparent"
             android:background="?attr/appCheckBoxCustomBackground"
             app:layout_constraintBottom_toBottomOf="parent"
