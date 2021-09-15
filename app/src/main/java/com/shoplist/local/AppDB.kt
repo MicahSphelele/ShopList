@@ -24,13 +24,11 @@ abstract class AppDB : RoomDatabase() {
         private var instance: AppDB? = null
 
         fun getInstance(context: Context): AppDB {
-
             return instance ?: synchronized(AppDB::class.java) {
                 instance ?: buildAppDB(context).also {
                     instance = it
                 }
             }
-
         }
 
         private fun buildAppDB(context: Context): AppDB {
