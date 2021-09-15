@@ -22,7 +22,6 @@ import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter.ShopItemAction
 import com.shoplist.util.Constants
 
-
 fun ViewGroup.viewHolderItemBinding(@LayoutRes resId: Int): ViewDataBinding {
     return DataBindingUtil.inflate(
         LayoutInflater.from(this.context),
