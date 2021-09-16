@@ -23,6 +23,7 @@ import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import com.shoplist.presentation.ui.custom.BtnAddDragListener
 import com.shoplist.presentation.ui.custom.RecyclerViewItemClickListener
+import com.shoplist.util.AppLogger
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -139,14 +140,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     override fun onStart() {
         super.onStart()
-        shopItemViewModel.getAllShoppingItems()?.observe(viewLifecycleOwner, Observer {
+        shopItemViewModel.getAllShoppingItems()?.observe(viewLifecycleOwner, {
             shopItems = it
             if (shopItems.isNotEmpty()) {
                 binding.recyclerView.run {
                     shopItemAdapter.setShopItemList(shopItems)
                     adapter = shopItemAdapter
                 }
-                return@Observer
+                return@observe
             }
             binding.recyclerView.run {
                 adapter = shopItemAdapter
@@ -164,6 +165,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
         })
 
         shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, {
+            AppLogger.error("getTotalMarkedItems : $it")
             binding.txtTotalMarked.text = it.returnItemsOrItem()
         })
     }
