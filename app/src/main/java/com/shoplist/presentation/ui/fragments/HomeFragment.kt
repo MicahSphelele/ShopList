@@ -180,10 +180,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     override fun onAction(shopItem: ShopItem, action: ShopItemAdapter.ShopItemAction) {
         if (action == ShopItemAdapter.ShopItemAction.EDIT) {
-
-            val bundle = Bundle()
-            bundle.putString(AddShopItemFragment.ACTION, Constants.ACTION_EDIT_VAL)
-            bundle.putParcelable(AddShopItemFragment.PARCELABLE, shopItem)
+            val bundle = Bundle().apply {
+                putString(AddShopItemFragment.ACTION, Constants.ACTION_EDIT_VAL)
+                putParcelable(AddShopItemFragment.PARCELABLE, shopItem)
+            }
             findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
             return
         }
