@@ -17,6 +17,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.databinding.FragmentHomeBinding
 import com.shoplist.domain.models.ShopItem
+import com.shoplist.extensions.hideShowImageAndText
 import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
@@ -55,7 +56,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
         shopItemAdapter.setListener(this)
 
-        hideShowImageAndText(true)
+        binding.hideShowImageAndText(View.GONE)
 
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
@@ -152,7 +153,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
                 adapter = shopItemAdapter
                 shopItemAdapter.setShopItemList(it)
             }
-            hideShowImageAndText(false)
+            binding.hideShowImageAndText(View.VISIBLE)
         })
 
         shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, {
@@ -194,14 +195,4 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
         }
     }
 
-    private fun hideShowImageAndText(hide: Boolean) {
-        if (hide) {
-            binding.image.visibility = View.GONE
-            binding.text.visibility = View.GONE
-        } else {
-            binding.image.visibility = View.VISIBLE
-            binding.text.visibility = View.VISIBLE
-        }
-
-    }
 }
