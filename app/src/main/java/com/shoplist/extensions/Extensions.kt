@@ -18,6 +18,7 @@ import androidx.databinding.ViewDataBinding
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.material.textview.MaterialTextView
 import com.shoplist.R
+import com.shoplist.databinding.FragmentHomeBinding
 import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter.ShopItemAction
 import com.shoplist.util.Constants
@@ -51,6 +52,11 @@ fun ItemShopBinding.showPopupMenu(view: View,itemSelected: (ShopItemAction) -> U
         true
     }
     popup.show()
+}
+
+fun FragmentHomeBinding.hideShowImageAndText(visibility: Int) {
+    this.image.visibility = visibility
+    this.text.visibility = visibility
 }
 
 fun Context.getViewBinder(layout: Int): ViewDataBinding {
