@@ -24,7 +24,6 @@ import com.shoplist.presentation.ui.custom.BtnAddDragListener
 import com.shoplist.presentation.ui.custom.RecyclerViewItemClickListener
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -60,22 +59,22 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
         val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView?.let {
+        binding.recyclerView.let {
             it.apply {
                 layoutManager = linearLayoutManager
                 addOnScrollListener(object : RecyclerView.OnScrollListener() {
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 
                         if (dy > 0) {
-                            if (btnAdd.isShown) {
-                                btnAdd.hide()
+                            if (binding.btnAdd.isShown) {
+                                binding.btnAdd.hide()
                                 isBtnAddHidden = true
                             }
 
                         } else if (dy < 0) {
 
-                            if (!btnAdd.isShown) {
-                                btnAdd.show()
+                            if (!binding.btnAdd.isShown) {
+                                binding.btnAdd.show()
                                 isBtnAddHidden = true
                             }
                         }
@@ -111,10 +110,10 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
                                 view?.visibility = View.VISIBLE
 
                                 if (isBtnAddHidden) {
-                                    btnAdd.show()
+                                    binding.btnAdd.show()
                                 }
 
-                                btnAdd.setImageDrawable(
+                                binding.btnAdd.setImageDrawable(
                                     ContextCompat.getDrawable(
                                         context,
                                         R.drawable.delete_24
@@ -128,13 +127,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
             }
         }
 
-        btnAdd.setOnClickListener {
+        binding.btnAdd.setOnClickListener {
             val bundle = Bundle()
             bundle.putString(AddShopItemFragment.ACTION, Constants.ACTION_ADD_VAL)
             findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
         }
 
-        btnAdd.setOnDragListener(BtnAddDragListener(btnAdd, requireContext(), this))
+        binding.btnAdd.setOnDragListener(BtnAddDragListener(binding.btnAdd, requireContext(), this))
     }
 
 
@@ -143,13 +142,13 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
         shopItemViewModel.getAllShoppingItems()?.observe(viewLifecycleOwner, Observer {
             shopItems = it
             if (shopItems.isNotEmpty()) {
-                recyclerView.run {
+                binding.recyclerView.run {
                     shopItemAdapter.setShopItemList(shopItems)
                     adapter = shopItemAdapter
                 }
                 return@Observer
             }
-            recyclerView.run {
+            binding.recyclerView.run {
                 adapter = shopItemAdapter
                 shopItemAdapter.setShopItemList(it)
             }
@@ -158,14 +157,14 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
         shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, {
             if (it != null) {
-                txtCostEstimation.text = Constants.formatCurrency(it)
+                binding.txtCostEstimation.text = Constants.formatCurrency(it)
                 return@observe
             }
-            txtCostEstimation.text = Constants.formatCurrency(0.00)
+            binding.txtCostEstimation.text = Constants.formatCurrency(0.00)
         })
 
         shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, {
-            txtTotalMarked.text = it.returnItemsOrItem()
+            binding.txtTotalMarked.text = it.returnItemsOrItem()
         })
     }
 
@@ -197,11 +196,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     private fun hideShowImageAndText(hide: Boolean) {
         if (hide) {
-            image.visibility = View.GONE
-            text.visibility = View.GONE
+            binding.image.visibility = View.GONE
+            binding.text.visibility = View.GONE
         } else {
-            image.visibility = View.VISIBLE
-            text.visibility = View.VISIBLE
+            binding.image.visibility = View.VISIBLE
+            binding.text.visibility = View.VISIBLE
         }
 
     }
