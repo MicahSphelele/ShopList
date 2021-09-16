@@ -16,7 +16,6 @@ import com.shoplist.databinding.BottomDialogCategoriesBinding
 import com.shoplist.databinding.FragmentAddShopItemBinding
 import com.shoplist.domain.models.Category
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.domain.models.ShopItemParcelable
 import com.shoplist.extensions.getViewBinder
 import com.shoplist.extensions.hideDeviceSoftKeyboard
 import com.shoplist.presentation.ui.adapters.CategoryAdapter
@@ -116,7 +115,7 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item),
         if (act == Constants.ACTION_EDIT_VAL) {
             binding.txtTitle.text = requireActivity().getText(R.string._edit_item)
             binding.btnAddItem.text = requireActivity().getText(R.string.edit_item)
-            val shopItem: ShopItemParcelable? = requireArguments().getParcelable(PARCELABLE)
+            val shopItem: ShopItem? = requireArguments().getParcelable(PARCELABLE)
 
             if (shopItem?.id != null) {
                 shopItemId = shopItem.id

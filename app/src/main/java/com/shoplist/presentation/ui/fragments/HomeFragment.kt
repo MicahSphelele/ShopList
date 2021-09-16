@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.domain.models.ShopItemParcelable
 import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
@@ -184,17 +183,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
             val bundle = Bundle()
             bundle.putString(AddShopItemFragment.ACTION, Constants.ACTION_EDIT_VAL)
-            bundle.putParcelable(
-                AddShopItemFragment.PARCELABLE, ShopItemParcelable(
-                    shopItem.id,
-                    shopItem.name,
-                    shopItem.dateAdded,
-                    shopItem.quantity,
-                    shopItem.categoryId,
-                    shopItem.itemCost,
-                    shopItem.isMarked
-                )
-            )
+            bundle.putParcelable(AddShopItemFragment.PARCELABLE, shopItem)
             findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
             return
         }
