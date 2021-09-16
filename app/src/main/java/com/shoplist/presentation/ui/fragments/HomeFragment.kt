@@ -58,7 +58,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
         binding.hideShowImageAndText(View.GONE)
 
-        val linearLayoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager =
+            LinearLayoutManager(requireActivity(), LinearLayoutManager.VERTICAL, false)
 
         binding.recyclerView.let {
             it.apply {
@@ -84,7 +85,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
                 addOnItemTouchListener(
                     RecyclerViewItemClickListener(
-                        context,
+                        requireContext(),
                         this,
                         object : RecyclerViewItemClickListener.ClickListener {
 
@@ -116,13 +117,11 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
                                 binding.btnAdd.setImageDrawable(
                                     ContextCompat.getDrawable(
-                                        context,
+                                        requireContext(),
                                         R.drawable.delete_24
                                     )
                                 )
-
                             }
-
                         })
                 )
             }
@@ -190,6 +189,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
             findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
             return
         }
+
         lifecycleScope.launch {
             shopItemViewModel.delete(shopItem)
         }
