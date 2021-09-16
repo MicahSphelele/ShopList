@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
+import com.shoplist.databinding.FragmentHomeBinding
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.viewmodels.ShopItemViewModel
@@ -35,6 +36,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     private lateinit var shopItems: List<ShopItem>
     private lateinit var selectedShopItem: ShopItem
+    private lateinit var binding: FragmentHomeBinding
 
     @Inject
     lateinit var shopItemAdapter: ShopItemAdapter
@@ -50,6 +52,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding = FragmentHomeBinding.bind(view)
 
         shopItemAdapter.setListener(this)
 
