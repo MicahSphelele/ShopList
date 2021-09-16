@@ -8,7 +8,6 @@ import android.view.View.DragShadowBuilder
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,12 +18,12 @@ import com.shoplist.databinding.FragmentHomeBinding
 import com.shoplist.domain.models.ShopItem
 import com.shoplist.extensions.hideShowImageAndText
 import com.shoplist.extensions.returnItemsOrItem
-import com.shoplist.viewmodels.ShopItemViewModel
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import com.shoplist.presentation.ui.custom.BtnAddDragListener
 import com.shoplist.presentation.ui.custom.RecyclerViewItemClickListener
 import com.shoplist.util.AppLogger
 import com.shoplist.util.Constants
+import com.shoplist.viewmodels.ShopItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
