@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/appBackgroundColor"
-        tools:context=".presentation.SplashActivity">
+        tools:context=".presentation.ui.activities.SplashActivity">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image"

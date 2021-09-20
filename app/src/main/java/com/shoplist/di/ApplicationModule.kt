@@ -21,20 +21,16 @@ object ApplicationModule {
 
     @Singleton
     @Provides
-    fun providesApplication(@ApplicationContext context: Context) : ShopListApplication {
-        return context as ShopListApplication
-    }
+    fun providesApplication(@ApplicationContext context: Context): ShopListApplication =
+        context as ShopListApplication
 
     @Provides
-    fun provideCategoryAdapter(): CategoryAdapter {
-        return CategoryAdapter()
-    }
+    fun provideCategoryAdapter(): CategoryAdapter = CategoryAdapter()
 
     @Provides
-    fun provideShopItemAdapter(): ShopItemAdapter {
-        return ShopItemAdapter()
-    }
+    fun provideShopItemAdapter(): ShopItemAdapter = ShopItemAdapter()
 
     @Provides
-    fun providesCoroutinesScope() : CoroutineScope = CoroutineScope(CoroutineName("ApplicationScope") + Dispatchers.IO)
+    fun providesCoroutinesScope(): CoroutineScope =
+        CoroutineScope(CoroutineName("ApplicationScope") + Dispatchers.IO)
 }

@@ -17,7 +17,8 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun providesDatabaseInstance(@ApplicationContext context: Context) : AppDB = AppDB.getInstance(context)
+    fun providesDatabaseInstance(@ApplicationContext context: Context): AppDB =
+        AppDB.getInstance(context)
 
     @Provides
     fun providesShopItemDao(db: AppDB): ShopItemDao = db.shopItemDao()

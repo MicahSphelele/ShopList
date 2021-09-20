@@ -39,14 +39,14 @@ object Constants {
             .format(amount)
     }
 
-    fun getCurrency() : Currency {
-        val locale = Locale.getDefault()
-        return Currency.getInstance(locale)
-    }
-
-    fun getLocalList() : List<Locale> {
-        return listOf(Locale("en", "ZA"), Locale.UK, Locale.US)
-    }
+//    fun getCurrency() : Currency {
+//        val locale = Locale.getDefault()
+//        return Currency.getInstance(locale)
+//    }
+//
+//    fun getLocalList() : List<Locale> {
+//        return listOf(Locale("en", "ZA"), Locale.UK, Locale.US)
+//    }
 
     fun getAppVersion(application: Application): String {
         return application.packageManager.getPackageInfo(application.packageName, 0).versionName
