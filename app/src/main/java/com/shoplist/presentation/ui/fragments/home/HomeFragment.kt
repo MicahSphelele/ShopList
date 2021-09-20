@@ -8,7 +8,6 @@ import android.view.View.DragShadowBuilder
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,19 +23,18 @@ import com.shoplist.presentation.ui.custom.RecyclerViewItemClickListener
 import com.shoplist.presentation.ui.fragments.AddShopItemFragment
 import com.shoplist.util.AppLogger
 import com.shoplist.util.Constants
-import com.shoplist.viewmodels.ShopItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemListener,
     BtnAddDragListener.Listener {
 
-    private val shopItemViewModel by viewModels<ShopItemViewModel>()
+    private val homeViewModel by viewModels<HomeViewModel>()
 
-    private  var shopItems: List<ShopItem>? = null
-    private  var selectedShopItem: ShopItem? = null
+    private var shopItems: List<ShopItem>? = null
+    private var selectedShopItem: ShopItem? = null
+
     private lateinit var binding: FragmentHomeBinding
 
     @Inject
@@ -140,45 +138,42 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     override fun onStart() {
         super.onStart()
-        shopItemViewModel.getAllShoppingItems().observe(viewLifecycleOwner, {
+        homeViewModel.getAllShopItems(viewLifecycleOwner) {
             shopItems = it
             if (shopItems?.isNotEmpty()!!) {
                 binding.recyclerView.run {
                     shopItemAdapter.setShopItemList(shopItems!!)
                     adapter = shopItemAdapter
                 }
-                return@observe
+                return@getAllShopItems
             }
             binding.recyclerView.run {
                 adapter = shopItemAdapter
                 shopItemAdapter.setShopItemList(it!!)
             }
             binding.hideShowImageAndText(View.VISIBLE)
-        })
+        }
 
-        shopItemViewModel.getTotalEstimationCost()?.observe(viewLifecycleOwner, {
+        homeViewModel.getTotalEstimationCost(viewLifecycleOwner) {
             if (it != null) {
                 binding.txtCostEstimation.text = Constants.formatCurrency(it)
-                return@observe
+                return@getTotalEstimationCost
             }
             binding.txtCostEstimation.text = Constants.formatCurrency(0.00)
-        })
+        }
 
-        shopItemViewModel.getTotalMarkedItems()?.observe(viewLifecycleOwner, {
-            AppLogger.error("getTotalMarkedItems : $it")
+        homeViewModel.getTotalMarkedItems(viewLifecycleOwner) {
             binding.txtTotalMarked.text = it.returnItemsOrItem()
-        })
-    }
-
-    override fun onShopItemDropped() {
-        lifecycleScope.launch {
-            shopItemViewModel.delete(selectedShopItem!!)
         }
     }
 
+    override fun onShopItemDropped() {
+        homeViewModel.deleteShopItem(selectedShopItem!!)
+    }
+
     override fun onShopItemMarked(shopItem: ShopItem) {
-        lifecycleScope.launch {
-            shopItemViewModel.update(shopItem)
+        homeViewModel.updatedShopItem(shopItem) {
+            AppLogger.info("ShopItem: ${shopItem.name} updated")
         }
     }
 
@@ -191,10 +186,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
             findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
             return
         }
-
-        lifecycleScope.launch {
-            shopItemViewModel.delete(shopItem)
-        }
+        homeViewModel.deleteShopItem(shopItem)
     }
 
 }
