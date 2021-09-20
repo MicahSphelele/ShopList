@@ -3,6 +3,7 @@ package com.shoplist.di
 import com.shoplist.domain.repository.CategoryRepository
 import com.shoplist.domain.repository.ShopItemRepository
 import com.shoplist.domain.usecases.category.GetAllCategoriesUseCase
+import com.shoplist.domain.usecases.category.GetCategoryByIdUseCase
 import com.shoplist.domain.usecases.shopitems.*
 import dagger.Module
 import dagger.Provides
@@ -14,30 +15,34 @@ import dagger.hilt.android.components.ViewModelComponent
 object UseCaseModule {
 
     @Provides
-    fun providesGetAllCategoriesUseCase(categoryRepository: CategoryRepository) : GetAllCategoriesUseCase =
+    fun providesGetAllCategoriesUseCase(categoryRepository: CategoryRepository): GetAllCategoriesUseCase =
         GetAllCategoriesUseCase(categoryRepository)
 
     @Provides
-    fun providesGetAllShopItemsUseCase(shopItemRepository: ShopItemRepository) : GetAllShopItemsUseCase =
+    fun providesGetCategoryByIdUseCase(shopItemRepository: CategoryRepository): GetCategoryByIdUseCase =
+        GetCategoryByIdUseCase(shopItemRepository)
+
+    @Provides
+    fun providesGetAllShopItemsUseCase(shopItemRepository: ShopItemRepository): GetAllShopItemsUseCase =
         GetAllShopItemsUseCase(shopItemRepository)
 
     @Provides
-    fun providesInsertShopItemUseCase(shopItemRepository: ShopItemRepository) : InsertShopItemUseCase =
+    fun providesInsertShopItemUseCase(shopItemRepository: ShopItemRepository): InsertShopItemUseCase =
         InsertShopItemUseCase(shopItemRepository)
 
     @Provides
-    fun providesDeleteShopItemUseCase(shopItemRepository: ShopItemRepository) : DeleteShopItemUseCase =
+    fun providesDeleteShopItemUseCase(shopItemRepository: ShopItemRepository): DeleteShopItemUseCase =
         DeleteShopItemUseCase(shopItemRepository)
 
     @Provides
-    fun providesUpdateShopItemUseCase(shopItemRepository: ShopItemRepository) : UpdateShopItemUseCase =
+    fun providesUpdateShopItemUseCase(shopItemRepository: ShopItemRepository): UpdateShopItemUseCase =
         UpdateShopItemUseCase(shopItemRepository)
 
     @Provides
-    fun providesGetTotalShopItemCostUseCase(shopItemRepository: ShopItemRepository) : GetTotalShopItemCostUseCase =
+    fun providesGetTotalShopItemCostUseCase(shopItemRepository: ShopItemRepository): GetTotalShopItemCostUseCase =
         GetTotalShopItemCostUseCase(shopItemRepository)
 
     @Provides
-    fun providesGetTotalMarkedShopItemsUseCase(shopItemRepository: ShopItemRepository) : GetTotalMarkedShopItemsUseCase =
+    fun providesGetTotalMarkedShopItemsUseCase(shopItemRepository: ShopItemRepository): GetTotalMarkedShopItemsUseCase =
         GetTotalMarkedShopItemsUseCase(shopItemRepository)
 }
