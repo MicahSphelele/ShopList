@@ -6,9 +6,9 @@ import com.shoplist.domain.models.ShopItem
 import com.shoplist.domain.usecases.shopitems.GetAllShopItemsUseCase
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(getAllShopItemsUseCase: GetAllShopItemsUseCase) : ViewModel() {
+class HomeViewModel @Inject constructor(private val getAllShopItemsUseCase: GetAllShopItemsUseCase) : ViewModel() {
 
-    fun getAllShopItemsUseCase() : LiveData<List<ShopItem>?> {
+    fun getAllShopItems() : LiveData<List<ShopItem>?> {
 
         return getAllShopItemsUseCase()
     }
