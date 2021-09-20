@@ -3,8 +3,8 @@ package com.shoplist.domain.repository
 import android.app.Application
 import androidx.lifecycle.LiveData
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.local.AppDB
-import com.shoplist.local.doas.ShopItemDao
+import com.shoplist.data.AppDB
+import com.shoplist.data.daos.ShopItemDao
 import javax.inject.Inject
 
 class ShopItemRepository @Inject constructor(application: Application) {
