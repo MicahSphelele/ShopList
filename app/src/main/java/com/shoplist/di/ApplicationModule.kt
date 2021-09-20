@@ -22,12 +22,6 @@ object ApplicationModule {
         return context as ShopListApplication
     }
 
-    @Singleton
-    @Provides
-    fun providesApplicationDatabase(@ApplicationContext context: Context) : AppDB {
-        return AppDB.getInstance(context)
-    }
-
     @Provides
     fun provideCategoryAdapter(): CategoryAdapter {
         return CategoryAdapter()
