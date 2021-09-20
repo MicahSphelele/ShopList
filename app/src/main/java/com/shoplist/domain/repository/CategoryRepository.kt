@@ -1,4 +1,4 @@
-package com.shoplist.domain.repository.interfaces
+package com.shoplist.domain.repository
 
 import androidx.lifecycle.LiveData
 import com.shoplist.domain.models.Category

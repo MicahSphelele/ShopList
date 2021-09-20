@@ -3,7 +3,7 @@ package com.shoplist.data.repository
 import androidx.lifecycle.LiveData
 import com.shoplist.data.daos.CategoryDao
 import com.shoplist.domain.models.Category
-import com.shoplist.domain.repository.interfaces.CategoryRepository
+import com.shoplist.domain.repository.CategoryRepository
 import javax.inject.Inject
 
 class RealCategoryRepository @Inject constructor(private val categoryDao: CategoryDao) : CategoryRepository {
