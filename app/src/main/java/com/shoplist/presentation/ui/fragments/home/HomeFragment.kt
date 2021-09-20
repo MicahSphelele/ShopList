@@ -15,6 +15,7 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.databinding.FragmentHomeBinding
 import com.shoplist.domain.models.ShopItem
+import com.shoplist.extensions.hideShowImageAndText
 import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import com.shoplist.presentation.ui.custom.BtnAddDragListener
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemListener,
     BtnAddDragListener.Listener {
 
-    private val homeViewModel by viewModels<HomeViewModel>()
+    private val viewModel by viewModels<HomeViewModel>()
 
     private var shopItems: List<ShopItem>? = null
     private var selectedShopItem: ShopItem? = null
@@ -137,7 +138,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     override fun onStart() {
         super.onStart()
-        homeViewModel.getAllShopItems(viewLifecycleOwner) {
+        viewModel.getAllShopItems(viewLifecycleOwner) {
             shopItems = it
             if (shopItems?.isNotEmpty()!!) {
                 binding.recyclerView.run {
@@ -153,7 +154,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
             binding.hideShowImageAndText(View.VISIBLE)
         }
 
-        homeViewModel.getTotalEstimationCost(viewLifecycleOwner) {
+        viewModel.getTotalEstimationCost(viewLifecycleOwner) {
             if (it != null) {
                 binding.txtCostEstimation.text = Constants.formatCurrency(it)
                 return@getTotalEstimationCost
@@ -161,17 +162,17 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
             binding.txtCostEstimation.text = Constants.formatCurrency(0.00)
         }
 
-        homeViewModel.getTotalMarkedItems(viewLifecycleOwner) {
+        viewModel.getTotalMarkedItems(viewLifecycleOwner) {
             binding.txtTotalMarked.text = it.returnItemsOrItem()
         }
     }
 
     override fun onShopItemDropped() {
-        homeViewModel.deleteShopItem(selectedShopItem!!)
+        viewModel.deleteShopItem(selectedShopItem!!)
     }
 
     override fun onShopItemMarked(shopItem: ShopItem) {
-        homeViewModel.updatedShopItem(shopItem) {
+        viewModel.updatedShopItem(shopItem) {
             AppLogger.info("ShopItem: ${shopItem.name} updated")
         }
     }
@@ -185,7 +186,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
             findNavController().navigate(R.id.add_shop_item_fragment, bundle, null, null)
             return
         }
-        homeViewModel.deleteShopItem(shopItem)
+        viewModel.deleteShopItem(shopItem)
     }
 
 }

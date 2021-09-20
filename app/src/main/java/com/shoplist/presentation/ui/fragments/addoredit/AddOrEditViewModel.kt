@@ -31,7 +31,6 @@ class AddOrEditViewModel @Inject constructor(
     }
 
     fun getCategoryById(
-        lifecycleOwner: LifecycleOwner,
         id: Int,
         onCategoryById: (Category?) -> Unit
     ) {

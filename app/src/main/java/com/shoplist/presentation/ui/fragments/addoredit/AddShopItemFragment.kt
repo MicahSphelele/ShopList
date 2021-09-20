@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -20,10 +19,7 @@ import com.shoplist.extensions.getViewBinder
 import com.shoplist.extensions.hideDeviceSoftKeyboard
 import com.shoplist.presentation.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
-import com.shoplist.viewmodels.CategoryViewModel
-import com.shoplist.viewmodels.ShopItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
@@ -36,8 +32,8 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item),
         const val PARCELABLE = "parcelableShopItem"
     }
 
-    private val categoryViewModel by viewModels<CategoryViewModel>()
-    private val shopItemViewModel by viewModels<ShopItemViewModel>()
+    private val viewModel by viewModels<AddOrEditViewModel>()
+
     private lateinit var binding: FragmentAddShopItemBinding
     private lateinit var action: String
     private lateinit var bottomSheetDialog: BottomSheetDialog
@@ -75,15 +71,14 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item),
         binding.btnAddItem.setOnClickListener {
             insertOrUpdate()
         }
-
     }
 
     override fun onStart() {
         super.onStart()
-        categoryViewModel.getAllCategories()?.observe(viewLifecycleOwner, {
+        viewModel.getAllCategories(viewLifecycleOwner) {
             categoryAdapter.setCategories(it)
             categoryAdapter.setListener(this)
-        })
+        }
     }
 
     override fun onPause() {
@@ -117,18 +112,17 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item),
             binding.btnAddItem.text = requireActivity().getText(R.string.edit_item)
             val shopItem: ShopItem? = requireArguments().getParcelable(PARCELABLE)
 
-            if (shopItem?.id != null) {
-                shopItemId = shopItem.id
+            shopItem?.id?.let {
+                shopItemId = it
             }
 
             binding.editItemName.setText(shopItem?.name)
             binding.editItemCost.setText(shopItem?.itemCost.toString())
 
             if (shopItem?.categoryId != null) {
-
-                lifecycleScope.launch {
-                    if (categoryViewModel.getCategoryById(shopItem.categoryId) != null) {
-                        category = categoryViewModel.getCategoryById(shopItem.categoryId)!!
+                viewModel.getCategoryById(shopItem.categoryId) { _category ->
+                    _category?.let {
+                        category = it
                         binding.btnSpinner.text = category.categoryName
                     }
                 }
@@ -161,17 +155,15 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item),
         val itemCost = binding.editItemCost.text.toString().toDouble()
 
         if (action == Constants.ACTION_ADD_VAL) {
-            lifecycleScope.launch {
-                shopItemViewModel.insert(
-                    ShopItem(
-                        itemName,
-                        Constants.getCurrentDateTime(),
-                        itemQuantity,
-                        categoryId,
-                        itemCost
-                    )
+            viewModel.insertShopItem(
+                ShopItem(
+                    itemName,
+                    Constants.getCurrentDateTime(),
+                    itemQuantity,
+                    categoryId,
+                    itemCost
                 )
-            }
+            )
             Toast.makeText(requireContext(), "Item successfully added!", Toast.LENGTH_SHORT).show()
             findNavController().navigateUp()
             return
@@ -180,12 +172,10 @@ class AddShopItemFragment : Fragment(R.layout.fragment_add_shop_item),
         val shopItem =
             ShopItem(itemName, Constants.getCurrentDateTime(), itemQuantity, categoryId, itemCost)
         shopItem.id = shopItemId
-        lifecycleScope.launch {
-            shopItemViewModel.update(shopItem)
+        viewModel.updatedShopItem(shopItem) {
+            Toast.makeText(requireContext(), "Item successfully updated!", Toast.LENGTH_SHORT)
+                .show()
+            findNavController().navigateUp()
         }
-        Toast.makeText(requireContext(), "Item updated successfully!", Toast.LENGTH_SHORT).show()
-        findNavController().navigateUp()
-
-
     }
 }
