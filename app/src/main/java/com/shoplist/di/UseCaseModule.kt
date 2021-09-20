@@ -4,6 +4,7 @@ import com.shoplist.domain.repository.CategoryRepository
 import com.shoplist.domain.repository.ShopItemRepository
 import com.shoplist.domain.usecases.category.GetAllCategoriesUseCase
 import com.shoplist.domain.usecases.shopitems.GetAllShopItemsUseCase
+import com.shoplist.domain.usecases.shopitems.InsertShopItemUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,4 +21,8 @@ object UseCaseModule {
     @Provides
     fun providesGetAllShopItemsUseCase(shopItemRepository: ShopItemRepository) : GetAllShopItemsUseCase =
         GetAllShopItemsUseCase(shopItemRepository)
+
+    @Provides
+    fun providesInsertShopItemUseCase(shopItemRepository: ShopItemRepository) : InsertShopItemUseCase =
+        InsertShopItemUseCase(shopItemRepository)
 }
