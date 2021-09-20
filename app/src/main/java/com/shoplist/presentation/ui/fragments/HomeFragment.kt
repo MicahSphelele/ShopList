@@ -34,8 +34,8 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     private val shopItemViewModel by viewModels<ShopItemViewModel>()
 
-    private lateinit var shopItems: List<ShopItem>
-    private lateinit var selectedShopItem: ShopItem
+    private  var shopItems: List<ShopItem>? = null
+    private  var selectedShopItem: ShopItem? = null
     private lateinit var binding: FragmentHomeBinding
 
     @Inject
@@ -95,7 +95,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
                             override fun onLongClick(view: View?, position: Int) {
 
-                                selectedShopItem = shopItems[position]
+                                selectedShopItem = shopItems!![position]
                                 val clipData = ClipData.newPlainText("", "")
                                 val shadowBuilder = DragShadowBuilder(view)
 
@@ -139,18 +139,18 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     override fun onStart() {
         super.onStart()
-        shopItemViewModel.getAllShoppingItems()?.observe(viewLifecycleOwner, {
+        shopItemViewModel.getAllShoppingItems().observe(viewLifecycleOwner, {
             shopItems = it
-            if (shopItems.isNotEmpty()) {
+            if (shopItems?.isNotEmpty()!!) {
                 binding.recyclerView.run {
-                    shopItemAdapter.setShopItemList(shopItems)
+                    shopItemAdapter.setShopItemList(shopItems!!)
                     adapter = shopItemAdapter
                 }
                 return@observe
             }
             binding.recyclerView.run {
                 adapter = shopItemAdapter
-                shopItemAdapter.setShopItemList(it)
+                shopItemAdapter.setShopItemList(it!!)
             }
             binding.hideShowImageAndText(View.VISIBLE)
         })
@@ -171,7 +171,7 @@ class HomeFragment : Fragment(R.layout.fragment_home), ShopItemAdapter.ShopItemL
 
     override fun onShopItemDropped() {
         lifecycleScope.launch {
-            shopItemViewModel.delete(selectedShopItem)
+            shopItemViewModel.delete(selectedShopItem!!)
         }
     }
 

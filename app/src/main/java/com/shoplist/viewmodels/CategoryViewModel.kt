@@ -3,7 +3,6 @@ package com.shoplist.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.shoplist.domain.models.Category
-import com.shoplist.data.repository.RealCategoryRepository
 import com.shoplist.domain.repository.interfaces.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

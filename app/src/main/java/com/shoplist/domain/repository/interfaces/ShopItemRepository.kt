@@ -3,7 +3,7 @@ package com.shoplist.domain.repository.interfaces
 import androidx.lifecycle.LiveData
 import com.shoplist.domain.models.ShopItem
 
-interface IShopItemRepository {
+interface ShopItemRepository {
 
     suspend fun insert(shopItem: ShopItem): Long?
 
@@ -11,7 +11,7 @@ interface IShopItemRepository {
 
     suspend fun update(shopItem: ShopItem): Int?
 
-    fun getAllShoppingItems(): LiveData<List<ShopItem>>?
+    fun getAllShoppingItems(): LiveData<List<ShopItem>?>
 
     fun getTotalEstimationCost(): LiveData<Double>?
 
