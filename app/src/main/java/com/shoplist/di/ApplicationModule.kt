@@ -10,6 +10,9 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineName
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -31,4 +34,7 @@ object ApplicationModule {
     fun provideShopItemAdapter(): ShopItemAdapter {
         return ShopItemAdapter()
     }
+
+    @Provides
+    fun providesCoroutinesScope() : CoroutineScope = CoroutineScope(CoroutineName("ApplicationScope") + Dispatchers.IO)
 }
