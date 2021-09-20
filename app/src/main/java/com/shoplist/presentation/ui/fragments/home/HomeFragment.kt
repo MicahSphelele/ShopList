@@ -1,4 +1,4 @@
-package com.shoplist.presentation.ui.fragments
+package com.shoplist.presentation.ui.fragments.home
 
 import android.content.ClipData
 import android.os.Build
@@ -21,6 +21,7 @@ import com.shoplist.extensions.returnItemsOrItem
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import com.shoplist.presentation.ui.custom.BtnAddDragListener
 import com.shoplist.presentation.ui.custom.RecyclerViewItemClickListener
+import com.shoplist.presentation.ui.fragments.AddShopItemFragment
 import com.shoplist.util.AppLogger
 import com.shoplist.util.Constants
 import com.shoplist.viewmodels.ShopItemViewModel
