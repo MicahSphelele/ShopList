@@ -3,7 +3,7 @@ package com.shoplist.viewmodels
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.domain.repository.interfaces.ShopItemRepository
+import com.shoplist.domain.repository.ShopItemRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
