@@ -1,8 +1,10 @@
 package com.shoplist.di
 
 import android.app.Application
-import com.shoplist.domain.repository.CategoryRepository
+import com.shoplist.data.daos.CategoryDao
+import com.shoplist.data.repository.RealCategoryRepository
 import com.shoplist.domain.repository.ShopItemRepository
+import com.shoplist.domain.repository.interfaces.CategoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,8 +17,8 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesCategoryRepository(application: Application): CategoryRepository {
-        return CategoryRepository(application)
+    fun providesCategoryRepository(categoryDao: CategoryDao): CategoryRepository {
+        return RealCategoryRepository(categoryDao)
     }
 
     @Singleton

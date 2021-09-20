@@ -3,7 +3,7 @@ package com.shoplist.domain.repository.interfaces
 import androidx.lifecycle.LiveData
 import com.shoplist.domain.models.Category
 
-interface ICategoryRepository {
+interface CategoryRepository {
 
     suspend fun insert(category: Category): Long?
 
@@ -13,6 +13,5 @@ interface ICategoryRepository {
 
     suspend fun getOneCategory(id: Int): Category?
 
-    fun getAllCategories(): LiveData<List<Category>>?
-
+    fun getAllCategories(): LiveData<List<Category>?>
 }
