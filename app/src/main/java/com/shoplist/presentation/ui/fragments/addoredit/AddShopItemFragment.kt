@@ -1,4 +1,4 @@
-package com.shoplist.presentation.ui.fragments
+package com.shoplist.presentation.ui.fragments.addoredit
 
 import android.annotation.SuppressLint
 import android.os.Bundle

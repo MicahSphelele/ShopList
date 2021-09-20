@@ -14,7 +14,7 @@
 
     <fragment
         android:id="@+id/add_shop_item_fragment"
-        android:name="com.shoplist.presentation.ui.fragments.AddShopItemFragment"
+        android:name="com.shoplist.presentation.ui.fragments.addoredit.AddShopItemFragment"
         android:label="Add Item"
         tools:layout="@layout/fragment_add_shop_item" />
 
