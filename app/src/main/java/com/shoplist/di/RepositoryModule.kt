@@ -4,7 +4,8 @@ import com.shoplist.data.daos.CategoryDao
 import com.shoplist.data.daos.ShopItemDao
 import com.shoplist.data.repository.RealCategoryRepository
 import com.shoplist.data.repository.RealShopItemRepository
-import com.shoplist.domain.repository.interfaces.CategoryRepository
+import com.shoplist.domain.repository.CategoryRepository
+import com.shoplist.domain.repository.ShopItemRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,6 +23,6 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun providesShopItemRepository(shopItemDao: ShopItemDao): RealShopItemRepository =
+    fun providesShopItemRepository(shopItemDao: ShopItemDao): ShopItemRepository =
         RealShopItemRepository(shopItemDao)
 }
