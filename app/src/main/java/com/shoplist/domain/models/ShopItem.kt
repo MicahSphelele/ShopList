@@ -5,6 +5,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.shoplist.util.Constants
+import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -29,6 +30,7 @@ data class ShopItem(
     var isMarked: Boolean = false
 
 ) : Parcelable {
+    @IgnoredOnParcel
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = Constants.SHOP_ID)
     var id: Int = 0

@@ -1,4 +1,4 @@
-package com.shoplist.presentation.ui
+package com.shoplist.presentation
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.shoplist.R
 import com.shoplist.databinding.ActivitySplashBinding
+import com.shoplist.presentation.ui.MainActivity
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.Completable
