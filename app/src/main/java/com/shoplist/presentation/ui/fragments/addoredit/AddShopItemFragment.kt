@@ -15,8 +15,8 @@ import com.shoplist.databinding.BottomDialogCategoriesBinding
 import com.shoplist.databinding.FragmentAddShopItemBinding
 import com.shoplist.domain.models.Category
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.extensions.getViewBinder
-import com.shoplist.extensions.hideDeviceSoftKeyboard
+import com.shoplist.util.extensions.getViewBinder
+import com.shoplist.util.extensions.hideDeviceSoftKeyboard
 import com.shoplist.presentation.ui.adapters.CategoryAdapter
 import com.shoplist.util.Constants
 import dagger.hilt.android.AndroidEntryPoint

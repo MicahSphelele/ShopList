@@ -1,4 +1,4 @@
-package com.shoplist.extensions
+package com.shoplist.util.extensions
 
 import android.content.Context
 import android.graphics.Paint

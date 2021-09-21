@@ -15,8 +15,8 @@ import com.google.android.material.transition.MaterialElevationScale
 import com.shoplist.R
 import com.shoplist.databinding.FragmentHomeBinding
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.extensions.hideShowImageAndText
-import com.shoplist.extensions.returnItemsOrItem
+import com.shoplist.util.extensions.hideShowImageAndText
+import com.shoplist.util.extensions.returnItemsOrItem
 import com.shoplist.presentation.ui.adapters.ShopItemAdapter
 import com.shoplist.presentation.ui.custom.BtnAddDragListener
 import com.shoplist.presentation.ui.custom.RecyclerViewItemClickListener

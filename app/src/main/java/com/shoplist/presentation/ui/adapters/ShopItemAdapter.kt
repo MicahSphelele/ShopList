@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shoplist.R
 import com.shoplist.databinding.ItemShopBinding
 import com.shoplist.domain.models.ShopItem
-import com.shoplist.extensions.returnItemsOrItem
-import com.shoplist.extensions.showPopupMenu
-import com.shoplist.extensions.viewHolderItemBinding
+import com.shoplist.util.extensions.returnItemsOrItem
+import com.shoplist.util.extensions.showPopupMenu
+import com.shoplist.util.extensions.viewHolderItemBinding
 
 class ShopItemAdapter :
     RecyclerView.Adapter<ShopItemAdapter.ViewHolder>() {
