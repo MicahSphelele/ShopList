@@ -28,6 +28,7 @@ The app uses [**Room Database**](https://developer.android.com/training/data-sto
 <img src="https://github.com/MicahSphelele/ShopList/blob/master/screenshots/default_mode/screen_6.jpg" width="125" height="250"/>
 </div>
 
+
 ## App Screen Shots (Dark Mode)
 
 <div>
